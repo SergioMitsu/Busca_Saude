@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <meta name="description" content="BuscaSaúde – Localize medicamentos disponíveis nas Unidades Básicas de Saúde (UBS) de São Paulo. Projeto universitário ODS 3." />
+  <meta name="theme-color" content="#1a6fa8" />
+  <title>BuscaSaúde – Medicamentos nas UBS de São Paulo</title>
+
+  <!-- Bootstrap 5 CSS via CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- Bootstrap Icons via CDN -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+  />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ===== SKIP NAVIGATION (Acessibilidade) ===== -->
+  <a class="skip-link" href="#pesquisa-section">Pular para o campo de pesquisa</a>
+
+  <!-- ===== HEADER / TOPO ===== -->
+  <header class="app-header" role="banner">
+    <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
+      <div class="brand d-flex align-items-center gap-2">
+        <span class="brand-icon" aria-hidden="true">
+          <i class="bi bi-heart-pulse-fill"></i>
+        </span>
+        <div>
+          <span class="brand-name">BuscaSaúde</span>
+          <span class="brand-tag d-block">UBS São Paulo · ODS 3</span>
+        </div>
+      </div>
+      <div class="header-badges d-none d-sm-flex gap-2">
+        <span class="badge badge-ods">
+          <i class="bi bi-globe-americas me-1" aria-hidden="true"></i>ODS 3
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===== HERO / DRA. NINA ===== -->
+  <main id="main-content" role="main">
+    <section class="nina-section" aria-label="Assistente virtual Dra. Nina">
+      <div class="container-fluid px-3">
+        <div class="nina-card">
+
+          <!-- Mascote SVG (Dra. Nina – Gata Calico) -->
+          <div class="nina-avatar-wrapper" aria-hidden="true">
+            <!-- Imagem placeholder real (conforme requisito id="dra-nina-img") -->
+            <img
+              id="dra-nina-img"
+              src="dra_nina.png"
+              alt="Dra. Nina, gata calico com bata médica branca e estetoscópio, a mascote da BuscaSaúde"
+              class="nina-photo"
+              onerror="this.style.display='none'; document.getElementById('nina-svg-fallback').style.display='flex';"
+            />
+            <!-- SVG Fallback da Dra. Nina (exibido se a imagem não carregar) -->
+            <div id="nina-svg-fallback" class="nina-svg-container" role="img" aria-label="Dra. Nina, mascote gata calico com bata médica">
+              <svg viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg" class="nina-svg">
+                <!-- Bata médica / corpo -->
+                <rect x="25" y="75" width="70" height="60" rx="14" fill="#f0f4ff"/>
+                <rect x="33" y="75" width="54" height="60" rx="10" fill="white"/>
+                <!-- Bolso bata -->
+                <rect x="38" y="100" width="18" height="14" rx="3" fill="#e8f0fe" stroke="#c5d5f0" stroke-width="1"/>
+                <!-- Cruz vermelha no bolso -->
+                <rect x="44" y="103" width="6" height="2" rx="1" fill="#e53935"/>
+                <rect x="46" y="101" width="2" height="6" rx="1" fill="#e53935"/>
+                <!-- Estetoscópio -->
+                <path d="M72 82 Q85 78 88 90 Q91 102 80 105" stroke="#555" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                <circle cx="80" cy="106" r="4" fill="#888" stroke="#555" stroke-width="1"/>
+                <!-- Pescoço -->
+                <rect x="51" y="65" width="18" height="16" rx="5" fill="#f5c5a0"/>
+                <!-- Cabeça (gata calico) -->
+                <ellipse cx="60" cy="52" rx="28" ry="26" fill="#f5c5a0"/>
+                <!-- Manchas calico -->
+                <ellipse cx="45" cy="44" rx="12" ry="10" fill="#f09030" opacity="0.75"/>
+                <ellipse cx="72" cy="48" rx="10" ry="8" fill="#222" opacity="0.5"/>
+                <ellipse cx="55" cy="60" rx="8" ry="5" fill="#f5c5a0"/>
+                <!-- Orelhas -->
+                <polygon points="36,30 28,12 48,28" fill="#f5c5a0"/>
+                <polygon points="37,28 31,16 45,27" fill="#ffb3ba"/>
+                <polygon points="84,30 92,12 72,28" fill="#f5c5a0"/>
+                <polygon points="83,28 89,16 75,27" fill="#ffb3ba"/>
+                <!-- Olhos -->
+                <ellipse cx="48" cy="50" rx="7" ry="8" fill="white"/>
+                <ellipse cx="72" cy="50" rx="7" ry="8" fill="white"/>
+                <ellipse cx="48" cy="51" rx="4.5" ry="5.5" fill="#4caf50"/>
+                <ellipse cx="72" cy="51" rx="4.5" ry="5.5" fill="#4caf50"/>
+                <ellipse cx="47" cy="50" rx="2.5" ry="3.5" fill="#1a1a1a"/>
+                <ellipse cx="71" cy="50" rx="2.5" ry="3.5" fill="#1a1a1a"/>
+                <!-- Brilho nos olhos -->
+                <circle cx="46" cy="48" r="1.2" fill="white"/>
+                <circle cx="70" cy="48" r="1.2" fill="white"/>
+                <!-- Nariz -->
+                <ellipse cx="60" cy="60" rx="3.5" ry="2.5" fill="#f48fb1"/>
+                <!-- Boca / sorriso -->
+                <path d="M55 63 Q60 68 65 63" stroke="#d45" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                <!-- Bigodes -->
+                <line x1="24" y1="57" x2="46" y2="60" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
+                <line x1="24" y1="62" x2="46" y2="62" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
+                <line x1="74" y1="60" x2="96" y2="57" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
+                <line x1="74" y1="62" x2="96" y2="62" stroke="#aaa" stroke-width="1" stroke-linecap="round"/>
+                <!-- Mãos / patas -->
+                <ellipse cx="30" cy="112" rx="10" ry="8" fill="#f5c5a0"/>
+                <ellipse cx="90" cy="112" rx="10" ry="8" fill="#f5c5a0"/>
+                <!-- Prancheta na pata direita -->
+                <rect x="80" y="98" width="18" height="22" rx="3" fill="#fff" stroke="#aab" stroke-width="1.5"/>
+                <line x1="83" y1="106" x2="95" y2="106" stroke="#90caf9" stroke-width="1.5"/>
+                <line x1="83" y1="110" x2="95" y2="110" stroke="#90caf9" stroke-width="1.5"/>
+                <line x1="83" y1="114" x2="91" y2="114" stroke="#90caf9" stroke-width="1.5"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Balão de fala da Dra. Nina -->
+          <div
+            id="dra-nina-balao"
+            class="nina-balloon"
+            role="status"
+            aria-live="polite"
+            aria-label="Mensagem da Dra. Nina"
+          >
+            <p class="balloon-text mb-0">
+              Olá! Sou a Dra. Nina. Que medicamento procura hoje? Escreva em baixo e eu ajudo a encontrar a UBS mais próxima.
+            </p>
+          </div>
+
+        </div><!-- /nina-card -->
+      </div>
+    </section>
+
+    <!-- ===== SECÇÃO DE PESQUISA ===== -->
+    <section id="pesquisa-section" class="search-section" aria-label="Pesquisa de medicamentos">
+      <div class="container-fluid px-3">
+        <div class="search-card">
+          <h1 class="search-title">
+            <i class="bi bi-search-heart me-2" aria-hidden="true"></i>
+            Pesquisar Medicamento
+          </h1>
+
+          <form
+            id="form-pesquisa"
+            role="search"
+            aria-label="Formulário de pesquisa de medicamentos"
+            novalidate
+          >
+            <div class="input-group-custom">
+              <label for="input-medicamento" class="form-label-custom">
+                Nome do medicamento:
+              </label>
+              <div class="input-row">
+                <input
+                  type="search"
+                  id="input-medicamento"
+                  class="input-medicamento"
+                  placeholder="Ex: Amoxicilina, Dipirona..."
+                  autocomplete="off"
+                  autocorrect="off"
+                  spellcheck="false"
+                  aria-label="Campo de busca: digite o nome do medicamento"
+                  aria-describedby="search-hint"
+                  aria-required="true"
+                />
+                <button
+                  type="submit"
+                  id="btn-pesquisar"
+                  class="btn-pesquisar"
+                  aria-label="Pesquisar medicamento"
+                >
+                  <i class="bi bi-search me-2" aria-hidden="true"></i>
+                  Pesquisar
+                </button>
+              </div>
+              <p id="search-hint" class="search-hint">
+                <i class="bi bi-info-circle me-1" aria-hidden="true"></i>
+                Digite o nome completo ou parte do nome do medicamento.
+              </p>
+            </div>
+
+            <!-- Sugestões rápidas -->
+            <div class="quick-suggestions" aria-label="Medicamentos mais buscados">
+              <span class="suggestions-label">Buscas frequentes:</span>
+              <div class="suggestions-list" role="list">
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Amoxicilina" aria-label="Pesquisar Amoxicilina">Amoxicilina</button>
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Dipirona" aria-label="Pesquisar Dipirona">Dipirona</button>
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Losartana" aria-label="Pesquisar Losartana">Losartana</button>
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Metformina" aria-label="Pesquisar Metformina">Metformina</button>
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Atenolol" aria-label="Pesquisar Atenolol">Atenolol</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ÁREA DE RESULTADOS ===== -->
+    <section
+      id="resultados-section"
+      class="results-section"
+      aria-label="Resultados da pesquisa"
+      aria-live="polite"
+      hidden
+    >
+      <div class="container-fluid px-3">
+
+        <!-- Cabeçalho dos resultados -->
+        <div class="results-header" id="results-header">
+          <div class="results-title-row">
+            <h2 class="results-title" id="results-title-text"></h2>
+            <button
+              id="btn-voz"
+              class="btn-voz"
+              type="button"
+              aria-label="Ler resultados em voz alta"
+              title="Ler em voz alta (Web Speech API)"
+            >
+              <i class="bi bi-volume-up-fill me-2" aria-hidden="true"></i>
+              <span>Ler em voz alta</span>
+            </button>
+          </div>
+          <p class="results-subtitle" id="results-subtitle"></p>
+        </div>
+
+        <!-- Lista de cards UBS -->
+        <div
+          id="lista-ubs"
+          class="ubs-list"
+          role="list"
+          aria-label="Lista de Unidades Básicas de Saúde com o medicamento"
+        ></div>
+
+        <!-- Estado: medicamento não encontrado -->
+        <div id="not-found-state" class="not-found-state" hidden>
+          <div class="not-found-icon" aria-hidden="true">😿</div>
+          <h2 class="not-found-title">Medicamento não encontrado</h2>
+          <p class="not-found-text">
+            Tente verificar a ortografia ou consulte diretamente a UBS mais próxima.
+          </p>
+          <button
+            type="button"
+            id="btn-nova-busca"
+            class="btn-nova-busca"
+            aria-label="Fazer nova pesquisa"
+          >
+            <i class="bi bi-arrow-left me-2" aria-hidden="true"></i>
+            Nova Pesquisa
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== ESTADO DE LOADING ===== -->
+    <div
+      id="loading-state"
+      class="loading-state"
+      role="status"
+      aria-label="Pesquisando medicamento, aguarde"
+      hidden
+    >
+      <div class="loading-spinner" aria-hidden="true"></div>
+      <p class="loading-text">Pesquisando nas UBS...</p>
+    </div>
+
+  </main>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="app-footer" role="contentinfo">
+    <div class="container-fluid px-3 py-3 text-center">
+      <p class="footer-text mb-1">
+        <i class="bi bi-heart-fill text-danger me-1" aria-hidden="true"></i>
+        Projeto Universitário · ODS 3 – Saúde e Bem-Estar
+      </p>
+      <p class="footer-text mb-0">
+        Os dados são meramente ilustrativos. Consulte sempre o seu médico ou a UBS local.
+      </p>
+      <p class="footer-disclaimer mt-2">
+        Dados mockados para protótipo · São Paulo, SP · 2025
+      </p>
+    </div>
+  </footer>
+
+  <!-- ===== TOAST de acessibilidade ===== -->
+  <div
+    id="toast-voz"
+    class="toast-voz"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+    hidden
+  >
+    <i class="bi bi-volume-up me-2" aria-hidden="true"></i>
+    <span id="toast-voz-msg">A ler em voz alta…</span>
+  </div>
+
+  <!-- Bootstrap 5 JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmFO1R3G2MFAFk2b3LTMIT+bT2y"
+    crossorigin="anonymous"
+  ></script>
+
+  <!-- App JS -->
+  <script src="script.js"></script>
+</body>
+</html>
