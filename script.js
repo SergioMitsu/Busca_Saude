@@ -431,7 +431,7 @@ function ninaComecarAFalar(texto) {
   ninaIntervalFala = setInterval(() => {
     frameFala = (frameFala + 1) % cicloFala.length;
     ninaTrocarSprite(cicloFala[frameFala]);
-  }, 185);
+  }, 300);
 
   // Dispara a Web Speech API com voz feminina configurada
   if (appState.speechSupported) {
