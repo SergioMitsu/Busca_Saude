@@ -24,7 +24,7 @@
 </p>
 
 <p align="center">
-  <a href="buscasaude.onrender.com"><strong>▶ Abrir o protótipo</strong></a>
+  <a href="https://buscasaude.onrender.com"><strong>▶ Abrir o protótipo</strong></a>
 </p>
 
 <p align="center">
