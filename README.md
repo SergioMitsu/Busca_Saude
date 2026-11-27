@@ -39,6 +39,7 @@ O **Busca Saúde** é uma aplicação web (*Single Page Application*) que permit
 | Fluxo e Recursos | O que oferece |
 |---|---|
 | **Dra. Nina (Mascote Virtual)** | Assistente interativa em formato de gata calico com jaleco médico, animada por sprites (`neutra`, `falando`, `gesticulando`, `piscando`) e balões de diálogo contextuais |
+| **Autocomplete Inteligente** | Sugestões dinâmicas em tempo real conforme a digitação, contemplando marcas e nomes comerciais populares (ex: Novalgina, Glifage, Advil, Amoxil) com mapeamento para o princípio ativo oficial do SUS |
 | **Busca por Texto ou Voz** | Pesquisa instantânea do medicamento ou entrada por comando de voz via `SpeechRecognition` |
 | **Leitura em Voz Alta** | Síntese de fala (`SpeechSynthesis`) com seleção inteligente de voz feminina natural em `pt-BR` para ler resultados e instruções |
 | **Filtro Geográfico (SP)** | Segmentação por zonas de São Paulo (**Norte, Sul, Leste, Oeste e Centro**) com atalhos diretos para rotas no **Google Maps** e ligação telefônica |
