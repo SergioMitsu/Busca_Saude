@@ -22,6 +22,7 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med001', nome: 'Amoxicilina',
       nome_generico: 'Amoxicilina Tri-hidratada',
+      nomes_comerciais: ['Amoxil', 'Novocilin', 'Velamox', 'Clavulin'],
       apresentacao: '500mg · Cápsula', categoria: 'Antibiótico',
       disponivel: true,
       ubs: [
@@ -50,6 +51,7 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med002', nome: 'Dipirona',
       nome_generico: 'Dipirona Monoidratada',
+      nomes_comerciais: ['Novalgina', 'Anador', 'Lisador', 'Magnopyrol', 'Baralgina'],
       apresentacao: '500mg · Comprimido', categoria: 'Analgésico / Antitérmico',
       disponivel: true,
       ubs: [
@@ -78,6 +80,7 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med003', nome: 'Losartana',
       nome_generico: 'Losartana Potássica',
+      nomes_comerciais: ['Cozaar', 'Aradois', 'Losatec', 'Corus', 'Torlos'],
       apresentacao: '50mg · Comprimido', categoria: 'Anti-hipertensivo',
       disponivel: true,
       ubs: [
@@ -101,6 +104,7 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med004', nome: 'Metformina',
       nome_generico: 'Cloridrato de Metformina',
+      nomes_comerciais: ['Glifage', 'Dimefor', 'Glucoformin', 'Risidon'],
       apresentacao: '850mg · Comprimido', categoria: 'Antidiabético',
       disponivel: true,
       ubs: [
@@ -124,12 +128,14 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med005', nome: 'Atenolol',
       nome_generico: 'Atenolol',
+      nomes_comerciais: ['Atenol', 'Angipress', 'Plenacor', 'Ritmicord'],
       apresentacao: '25mg · Comprimido', categoria: 'Betabloqueador / Anti-hipertensivo',
       disponivel: false, ubs: []
     },
     {
       id: 'med006', nome: 'Omeprazol',
       nome_generico: 'Omeprazol',
+      nomes_comerciais: ['Losec', 'Peprazol', 'Omepramix', 'Victor', 'Gaspiren'],
       apresentacao: '20mg · Cápsula', categoria: 'Protetor gástrico',
       disponivel: true,
       ubs: [
@@ -151,6 +157,7 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med007', nome: 'Captopril',
       nome_generico: 'Captopril',
+      nomes_comerciais: ['Capoten', 'Hipocat', 'Captocord'],
       apresentacao: '25mg · Comprimido', categoria: 'Anti-hipertensivo (IECA)',
       disponivel: true,
       ubs: [
@@ -167,8 +174,90 @@ const DADOS_SAUDE_SP = {
     {
       id: 'med008', nome: 'Ibuprofeno',
       nome_generico: 'Ibuprofeno',
+      nomes_comerciais: ['Alivium', 'Advil', 'Buscofem', 'Dalsy', 'Spidufen'],
       apresentacao: '400mg · Comprimido', categoria: 'Anti-inflamatório',
       disponivel: false, ubs: []
+    },
+    {
+      id: 'med009', nome: 'Paracetamol',
+      nome_generico: 'Paracetamol',
+      nomes_comerciais: ['Tylenol', 'Parador', 'Dôrico', 'Tynefrin'],
+      apresentacao: '500mg · Comprimido', categoria: 'Analgésico / Antitérmico',
+      disponivel: true,
+      ubs: [
+        { id:'ubs001', zona:'Oeste', nome:'UBS Dr. José Leão – Vila Madalena',
+          endereco:'Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP', cep:'05417-011',
+          telefone:'(11) 3812-4400', horario:'Segunda a Sexta: 07h às 19h\nSábado: 07h às 13h',
+          coordenadas:{lat:-23.5558,lng:-46.6975}, estoque_percentual:94,
+          obs:'Disponível sem receita médica.' },
+        { id:'ubs003', zona:'Norte', nome:'UBS Santana – Zona Norte',
+          endereco:'Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP', cep:'02011-001',
+          telefone:'(11) 2973-5600', horario:'Segunda a Sexta: 07h às 17h',
+          coordenadas:{lat:-23.5014,lng:-46.6226}, estoque_percentual:82,
+          obs:'Disponível para retirada imediata.' },
+        { id:'ubs007', zona:'Leste', nome:'UBS Itaquera – Zona Leste',
+          endereco:'Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP', cep:'08230-010',
+          telefone:'(11) 2074-5300', horario:'Segunda a Sexta: 07h às 17h',
+          coordenadas:{lat:-23.5342,lng:-46.4475}, estoque_percentual:76,
+          obs:'Estoque regularizado.' }
+      ]
+    },
+    {
+      id: 'med010', nome: 'Sinvastatina',
+      nome_generico: 'Sinvastatina',
+      nomes_comerciais: ['Zocor', 'Sinvax', 'Vaslip', 'Sinvascor'],
+      apresentacao: '20mg · Comprimido', categoria: 'Hipolipemiante (Colesterol)',
+      disponivel: true,
+      ubs: [
+        { id:'ubs002', zona:'Centro', nome:'UBS Jardim Paulista',
+          endereco:'Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP', cep:'01403-001',
+          telefone:'(11) 3255-5800', horario:'Segunda a Sexta: 07h às 17h',
+          coordenadas:{lat:-23.5715,lng:-46.6543}, estoque_percentual:88,
+          obs:'Necessário receita médica.' },
+        { id:'ubs008', zona:'Sul', nome:'UBS Santo Amaro – Zona Sul',
+          endereco:'Rua Amador Bueno, 536 – Santo Amaro, São Paulo – SP', cep:'04752-005',
+          telefone:'(11) 5681-3200', horario:'Segunda a Sexta: 07h às 19h',
+          coordenadas:{lat:-23.6500,lng:-46.7100}, estoque_percentual:69,
+          obs:'Programa de prevenção cardiovascular.' }
+      ]
+    },
+    {
+      id: 'med011', nome: 'Salbutamol',
+      nome_generico: 'Sulfato de Salbutamol',
+      nomes_comerciais: ['Aerolin', 'Aerodini', 'Asmavent'],
+      apresentacao: '100mcg/dose · Spray aerossol', categoria: 'Broncodilatador (Asma / DPOC)',
+      disponivel: true,
+      ubs: [
+        { id:'ubs005', zona:'Centro', nome:'UBS Bela Vista – Centro',
+          endereco:'Av. Brigadeiro Luís Antônio, 2393 – Bela Vista, São Paulo – SP', cep:'01401-000',
+          telefone:'(11) 3107-2200', horario:'Segunda a Sexta: 07h às 19h',
+          coordenadas:{lat:-23.5618,lng:-46.6549}, estoque_percentual:85,
+          obs:'Retirada com receita e orientações sobre uso de espaçador.' },
+        { id:'ubs004', zona:'Sul', nome:'UBS Campo Limpo – Zona Sul',
+          endereco:'Av. Franz Voegeli, 40 – Campo Limpo, São Paulo – SP', cep:'05755-000',
+          telefone:'(11) 5841-9000', horario:'Segunda a Sexta: 07h às 17h',
+          coordenadas:{lat:-23.6485,lng:-46.7627}, estoque_percentual:58,
+          obs:'Acompanhamento do programa Respira São Paulo.' }
+      ]
+    },
+    {
+      id: 'med012', nome: 'Hidroclorotiazida',
+      nome_generico: 'Hidroclorotiazida',
+      nomes_comerciais: ['Clorana', 'Drenol', 'Moduretic'],
+      apresentacao: '25mg · Comprimido', categoria: 'Diurético / Anti-hipertensivo',
+      disponivel: true,
+      ubs: [
+        { id:'ubs001', zona:'Oeste', nome:'UBS Dr. José Leão – Vila Madalena',
+          endereco:'Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP', cep:'05417-011',
+          telefone:'(11) 3812-4400', horario:'Segunda a Sexta: 07h às 19h',
+          coordenadas:{lat:-23.5558,lng:-46.6975}, estoque_percentual:90,
+          obs:'Integrado ao Programa HIPERDIA.' },
+        { id:'ubs002', zona:'Centro', nome:'UBS Jardim Paulista',
+          endereco:'Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP', cep:'01403-001',
+          telefone:'(11) 3255-5800', horario:'Segunda a Sexta: 07h às 17h',
+          coordenadas:{lat:-23.5715,lng:-46.6543}, estoque_percentual:75,
+          obs:'Disponível mediante apresentação de receita médica.' }
+      ]
     }
   ]
 };
@@ -240,22 +329,28 @@ const tipCounter        = $('tip-counter');
 const btnTipNext        = $('btn-tip-next');
 const btnTipPrev        = $('btn-tip-prev');
 const chips             = $$('.suggestion-chip');
+const autocompleteDropdown = $('autocomplete-dropdown');
+const alertaComercialSus   = $('alerta-comercial-sus');
+const alertaComercialTexto = $('alerta-comercial-texto');
 
 /* ═══════════════════════════════════════════════════════════════════
    5. ESTADO GLOBAL DA APLICAÇÃO
    ═══════════════════════════════════════════════════════════════════ */
 const appState = {
-  ultimaBusca:      '',
-  resultados:       [],       // UBS filtradas pelo zona atual
-  resultadosTotal:  [],       // Todas as UBS do medicamento encontrado
-  medicamentoAtual: null,
-  speaking:         false,
-  speechSynth:      window.speechSynthesis || null,
-  speechSupported: 'speechSynthesis' in window,
-  fontScale:        1,        // 0.85 | 1 | 1.15 | 1.30
-  highContrast:     false,
-  tipIndex:         0,
-  tipTimer:         null,
+  ultimaBusca:               '',
+  marcaReferenciaPesquisada: null, // Guarda o nome comercial quando pesquisado
+  resultados:                [],   // UBS filtradas pela zona atual
+  resultadosTotal:           [],   // Todas as UBS do medicamento encontrado
+  medicamentoAtual:          null,
+  speaking:                  false,
+  speechSynth:               window.speechSynthesis || null,
+  speechSupported:          'speechSynthesis' in window,
+  fontScale:                 1,    // 0.85 | 1 | 1.15 | 1.30
+  highContrast:              false,
+  tipIndex:                  0,
+  tipTimer:                  null,
+  sugestoesAtuais:           [],   // Sugestões ativas no autocomplete
+  activeSuggestionIndex:     -1    // Índice da sugestão focada via teclado
 };
 
 /* ═══════════════════════════════════════════════════════════════════
@@ -844,54 +939,475 @@ function criarCardUbs(ubs, nomeMed, apresentacao) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   12. LÓGICA PRINCIPAL DE PESQUISA
+   12. AUTOCOMPLETE INTELIGENTE & SUGESTÕES DINÂMICAS
+   ═══════════════════════════════════════════════════════════════════ */
+
+/**
+ * Salva um termo no histórico local de pesquisas recentes (máx 5)
+ */
+function salvarBuscaRecente(termo) {
+  if (!termo || !termo.trim()) return;
+  const t = termo.trim();
+  let historico = obterHistoricoRecente();
+  historico = historico.filter(item => normalizar(item) !== normalizar(t));
+  historico.unshift(t);
+  if (historico.length > 5) historico = historico.slice(0, 5);
+  try {
+    localStorage.setItem('bs_recent_searches', JSON.stringify(historico));
+  } catch (_) {}
+}
+
+/**
+ * Recupera o histórico de pesquisas recentes
+ */
+function obterHistoricoRecente() {
+  try {
+    const raw = localStorage.getItem('bs_recent_searches');
+    return raw ? JSON.parse(raw) : [];
+  } catch (_) {
+    return [];
+  }
+}
+
+/**
+ * Limpa o histórico de pesquisas
+ */
+function limparHistoricoRecente() {
+  try {
+    localStorage.removeItem('bs_recent_searches');
+  } catch (_) {}
+  fecharAutocomplete();
+  anunciarAria('Histórico de pesquisas limpo com sucesso.');
+}
+
+/**
+ * Destaca visualmente no texto a substring correspondente ao que foi digitado
+ */
+function destacarTermo(texto, termo) {
+  if (!termo || !texto) return escapeHtml(texto);
+  const textoLimpo = String(texto);
+  const termoNorm  = normalizar(termo.trim());
+  const textoNorm  = normalizar(textoLimpo);
+  const idx        = textoNorm.indexOf(termoNorm);
+  if (idx === -1) return escapeHtml(textoLimpo);
+
+  const antes  = textoLimpo.substring(0, idx);
+  const meio   = textoLimpo.substring(idx, idx + termo.trim().length);
+  const depois = textoLimpo.substring(idx + termo.trim().length);
+
+  return `${escapeHtml(antes)}<mark class="highlight-match">${escapeHtml(meio)}</mark>${escapeHtml(depois)}`;
+}
+
+/**
+ * Realiza a busca em tempo real por medicamentos e marcas comerciais
+ * @param {string} termo
+ */
+function buscarSugestoesAutocomplete(termo) {
+  if (!termo || !termo.trim()) return [];
+  const termoNorm = normalizar(termo.trim());
+  const sugestoes = [];
+  const medicamentos = DADOS_SAUDE_SP.medicamentos;
+
+  medicamentos.forEach(med => {
+    const nomeNorm = normalizar(med.nome);
+    const genNorm  = normalizar(med.nome_generico);
+    const catNorm  = normalizar(med.categoria);
+
+    // 1. Match no Nome Oficial SUS (Princípio Ativo)
+    let scorePrincipal = 0;
+    if (nomeNorm === termoNorm) {
+      scorePrincipal = 100;
+    } else if (nomeNorm.startsWith(termoNorm)) {
+      scorePrincipal = 85;
+    } else if (nomeNorm.includes(termoNorm)) {
+      scorePrincipal = 60;
+    } else if (genNorm.includes(termoNorm)) {
+      scorePrincipal = 45;
+    } else if (catNorm.includes(termoNorm)) {
+      scorePrincipal = 30;
+    }
+
+    if (scorePrincipal > 0) {
+      sugestoes.push({
+        tipo: 'generico',
+        termoBusca: med.nome,
+        nomeExibicao: med.nome,
+        medicamento: med,
+        score: scorePrincipal
+      });
+    }
+
+    // 2. Match em Nomes Comerciais (Marcas de Referência / Populares)
+    if (med.nomes_comerciais && Array.isArray(med.nomes_comerciais)) {
+      med.nomes_comerciais.forEach(marca => {
+        const marcaNorm = normalizar(marca);
+        let scoreMarca = 0;
+        if (marcaNorm === termoNorm) {
+          scoreMarca = 95;
+        } else if (marcaNorm.startsWith(termoNorm)) {
+          scoreMarca = 80;
+        } else if (marcaNorm.includes(termoNorm)) {
+          scoreMarca = 50;
+        }
+
+        if (scoreMarca > 0) {
+          sugestoes.push({
+            tipo: 'comercial',
+            termoBusca: marca,
+            nomeExibicao: marca,
+            nomeComercial: marca,
+            medicamento: med,
+            score: scoreMarca
+          });
+        }
+      });
+    }
+  });
+
+  // Ordena por relevância (pontuação mais alta primeiro)
+  sugestoes.sort((a, b) => b.score - a.score);
+
+  // Remove duplicatas mantendo a maior relevância e limita a 6 resultados
+  const vistas = new Set();
+  const unicas = [];
+  for (const s of sugestoes) {
+    const chave = `${s.tipo}-${s.nomeExibicao}-${s.medicamento.id}`;
+    if (!vistas.has(chave)) {
+      vistas.add(chave);
+      unicas.push(s);
+      if (unicas.length >= 6) break;
+    }
+  }
+
+  return unicas;
+}
+
+/**
+ * Renderiza o painel quando o usuário clica/foca no campo ainda vazio
+ */
+function renderizarPainelFocoInicial() {
+  if (!autocompleteDropdown) return;
+  const historico = obterHistoricoRecente();
+
+  let html = '';
+  if (historico.length > 0) {
+    html = `
+      <div class="autocomplete-header">
+        <span><i class="bi bi-clock-history me-1" aria-hidden="true"></i>Pesquisas Recentes</span>
+        <button type="button" class="btn-limpar-historico-autocomplete" id="btn-limpar-hist" title="Limpar histórico de buscas">Limpar histórico</button>
+      </div>
+      <ul class="autocomplete-list" role="listbox">
+    `;
+    historico.forEach((item, idx) => {
+      html += `
+        <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="${escapeHtml(item)}" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-clock text-muted" aria-hidden="true"></i>
+              <strong class="autocomplete-item-name" style="font-size:var(--fs-sm);">${escapeHtml(item)}</strong>
+            </div>
+          </div>
+          <i class="bi bi-arrow-up-left text-muted" aria-hidden="true"></i>
+        </li>
+      `;
+    });
+    html += `</ul>`;
+  } else {
+    // Sugestões populares se o histórico estiver vazio
+    html = `
+      <div class="autocomplete-header">
+        <span><i class="bi bi-lightning-charge-fill me-1" aria-hidden="true"></i>Sugestões Rápidas (Genéricos e Marcas)</span>
+      </div>
+      <ul class="autocomplete-list" role="listbox">
+        <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Dipirona" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <strong class="autocomplete-item-name">Dipirona</strong>
+              <span class="badge-tag-generico">Genérico SUS</span>
+            </div>
+            <span class="autocomplete-item-sub">Marca de referência: Novalgina, Anador</span>
+          </div>
+        </li>
+        <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Novalgina" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <strong class="autocomplete-item-name">Novalgina</strong>
+              <span class="badge-tag-comercial"><i class="bi bi-tag-fill me-1"></i>Marca Comercial</span>
+            </div>
+            <span class="autocomplete-item-sub">Dispensado no SUS como: <strong>Dipirona (500mg)</strong></span>
+          </div>
+        </li>
+        <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Glifage" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <strong class="autocomplete-item-name">Glifage</strong>
+              <span class="badge-tag-comercial"><i class="bi bi-tag-fill me-1"></i>Marca Comercial</span>
+            </div>
+            <span class="autocomplete-item-sub">Dispensado no SUS como: <strong>Metformina (850mg)</strong></span>
+          </div>
+        </li>
+        <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Amoxicilina" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <strong class="autocomplete-item-name">Amoxicilina</strong>
+              <span class="badge-tag-generico">Genérico SUS</span>
+            </div>
+            <span class="autocomplete-item-sub">Marca de referência: Amoxil (500mg)</span>
+          </div>
+        </li>
+      </ul>
+    `;
+  }
+
+  html += `
+    <div class="autocomplete-footer">
+      <span><i class="bi bi-search me-1" aria-hidden="true"></i>Digite um remédio ou marca comercial</span>
+      <span>BuscaSaúde · ODS 3</span>
+    </div>
+  `;
+
+  autocompleteDropdown.innerHTML = html;
+  autocompleteDropdown.hidden = false;
+  if (inputMed) inputMed.setAttribute('aria-expanded', 'true');
+
+  const btnLimpar = autocompleteDropdown.querySelector('#btn-limpar-hist');
+  btnLimpar?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    limparHistoricoRecente();
+  });
+
+  const itens = autocompleteDropdown.querySelectorAll('.autocomplete-recent-item');
+  itens.forEach(item => {
+    item.addEventListener('click', () => {
+      const termo = item.dataset.termo;
+      if (inputMed) inputMed.value = termo;
+      fecharAutocomplete();
+      pesquisarMedicamento(termo);
+    });
+  });
+}
+
+/**
+ * Renderiza as sugestões dinâmicas conforme a digitação do usuário
+ */
+function renderizarAutocomplete(sugestoes, termo) {
+  if (!autocompleteDropdown) return;
+  appState.sugestoesAtuais = sugestoes;
+  appState.activeSuggestionIndex = -1;
+
+  if (inputMed) {
+    inputMed.setAttribute('aria-expanded', 'true');
+    inputMed.removeAttribute('aria-activedescendant');
+  }
+
+  if (sugestoes.length === 0) {
+    autocompleteDropdown.innerHTML = `
+      <div class="autocomplete-empty">
+        <span class="autocomplete-empty-icon" aria-hidden="true">🔍</span>
+        <p class="autocomplete-empty-title">Nenhum medicamento encontrado para "${escapeHtml(termo)}"</p>
+        <p class="autocomplete-empty-tip">Tente buscar pelo princípio ativo (ex: Dipirona) ou marca conhecida (ex: Novalgina, Glifage, Advil).</p>
+      </div>
+    `;
+    autocompleteDropdown.hidden = false;
+    return;
+  }
+
+  let html = `
+    <div class="autocomplete-header">
+      <span><i class="bi bi-stars me-1" aria-hidden="true"></i>Sugestões Inteligentes (${sugestoes.length})</span>
+      <span class="d-none d-sm-inline text-muted" style="font-weight:600;font-size:11px;">Use ↑↓ para navegar · Enter para escolher</span>
+    </div>
+    <ul class="autocomplete-list" role="listbox">
+  `;
+
+  sugestoes.forEach((sug, idx) => {
+    const med = sug.medicamento;
+    const temEstoque = med.disponivel && med.ubs && med.ubs.length > 0;
+    const badgeEstoque = temEstoque
+      ? `<span class="badge-stock-sim"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> Disponível nas UBS</span>`
+      : `<span class="badge-stock-nao"><i class="bi bi-x-circle-fill" aria-hidden="true"></i> Em falta</span>`;
+
+    if (sug.tipo === 'comercial') {
+      // Sugestão identificada por Nome Comercial
+      html += `
+        <li id="sugestao-${idx}" class="autocomplete-item" role="option" aria-selected="false" data-index="${idx}" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <span class="autocomplete-item-name">${destacarTermo(sug.nomeComercial, termo)}</span>
+              <span class="badge-tag-comercial"><i class="bi bi-tag-fill me-1" aria-hidden="true"></i>Nome Comercial</span>
+            </div>
+            <div class="autocomplete-item-sub">
+              <strong>Princípio Ativo SUS:</strong> ${escapeHtml(med.nome)} · ${escapeHtml(med.apresentacao)}
+            </div>
+            <div class="autocomplete-item-sub text-muted">
+              ${escapeHtml(med.categoria)}
+            </div>
+          </div>
+          <div class="autocomplete-item-badge">
+            ${badgeEstoque}
+          </div>
+        </li>
+      `;
+    } else {
+      // Sugestão pelo Princípio Ativo (Genérico Oficial)
+      const nomesComerciaisStr = med.nomes_comerciais && med.nomes_comerciais.length
+        ? `<div class="autocomplete-item-brands"><i class="bi bi-tag me-1" aria-hidden="true"></i>Marcas: ${escapeHtml(med.nomes_comerciais.slice(0, 3).join(', '))}${med.nomes_comerciais.length > 3 ? '...' : ''}</div>`
+        : '';
+
+      html += `
+        <li id="sugestao-${idx}" class="autocomplete-item" role="option" aria-selected="false" data-index="${idx}" tabindex="0">
+          <div class="autocomplete-item-content">
+            <div class="autocomplete-item-top">
+              <span class="autocomplete-item-name">${destacarTermo(med.nome, termo)}</span>
+              <span class="badge-tag-generico"><i class="bi bi-capsule me-1" aria-hidden="true"></i>Genérico SUS</span>
+            </div>
+            <div class="autocomplete-item-sub">
+              ${escapeHtml(med.apresentacao)} · ${escapeHtml(med.categoria)}
+            </div>
+            ${nomesComerciaisStr}
+          </div>
+          <div class="autocomplete-item-badge">
+            ${badgeEstoque}
+          </div>
+        </li>
+      `;
+    }
+  });
+
+  html += `
+    </ul>
+    <div class="autocomplete-footer">
+      <span><i class="bi bi-shield-check me-1" aria-hidden="true"></i>Base oficial SUS · São Paulo</span>
+      <span>Clique ou aperte Enter</span>
+    </div>
+  `;
+
+  autocompleteDropdown.innerHTML = html;
+  autocompleteDropdown.hidden = false;
+
+  // Eventos de clique nas opções
+  const itens = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+  itens.forEach(item => {
+    item.addEventListener('click', () => {
+      const idx = parseInt(item.dataset.index, 10);
+      selecionarSugestao(idx);
+    });
+  });
+}
+
+/**
+ * Trata a seleção de uma sugestão do autocomplete
+ */
+function selecionarSugestao(index) {
+  const sugestao = appState.sugestoesAtuais[index];
+  if (!sugestao) return;
+
+  fecharAutocomplete();
+
+  if (sugestao.tipo === 'comercial') {
+    appState.marcaReferenciaPesquisada = sugestao.nomeComercial;
+    if (inputMed) inputMed.value = sugestao.nomeComercial;
+    pesquisarMedicamento(sugestao.nomeComercial);
+  } else {
+    appState.marcaReferenciaPesquisada = null;
+    if (inputMed) inputMed.value = sugestao.medicamento.nome;
+    pesquisarMedicamento(sugestao.medicamento.nome);
+  }
+}
+
+/**
+ * Fecha o dropdown do autocomplete e redefine estados
+ */
+function fecharAutocomplete() {
+  if (autocompleteDropdown) {
+    autocompleteDropdown.hidden = true;
+    autocompleteDropdown.innerHTML = '';
+  }
+  if (inputMed) {
+    inputMed.setAttribute('aria-expanded', 'false');
+    inputMed.removeAttribute('aria-activedescendant');
+  }
+  appState.sugestoesAtuais = [];
+  appState.activeSuggestionIndex = -1;
+}
+
+/**
+ * Atualiza visualmente a sugestão ativa durante a navegação por teclado (ArrowUp / ArrowDown)
+ */
+function atualizarItemAtivo(items) {
+  items.forEach((item, idx) => {
+    const isActive = idx === appState.activeSuggestionIndex;
+    item.classList.toggle('active', isActive);
+    item.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    if (isActive) {
+      item.scrollIntoView({ block: 'nearest' });
+      inputMed?.setAttribute('aria-activedescendant', `sugestao-${idx}`);
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   13. LÓGICA PRINCIPAL DE PESQUISA
    ═══════════════════════════════════════════════════════════════════ */
 async function pesquisarMedicamento(termo) {
-  if (!termo.trim()) {
+  if (!termo || !termo.trim()) {
     atualizarNina(NINA_MSGS.campoVazio, 'error');
     setNinaEstado('neutra');
     inputMed?.focus();
     return;
   }
 
-  const termoBusca = normalizar(termo.trim());
-  appState.ultimaBusca = termo.trim();
+  const termoLimpo = termo.trim();
+  const termoBusca = normalizar(termoLimpo);
+  appState.ultimaBusca = termoLimpo;
 
+  // Salva no histórico de buscas
+  salvarBuscaRecente(termoLimpo);
+
+  fecharAutocomplete();
   pararFala();
   mostrarLoading(true);
   ocultarResultados();
-  atualizarNina(NINA_MSGS.buscando(termo), 'typing');
+  if (alertaComercialSus) alertaComercialSus.hidden = true;
+
+  atualizarNina(NINA_MSGS.buscando(termoLimpo), 'typing');
   setNinaEstado('neutra');
   if (window.NinaAnimation) NinaAnimation.setState('thinking');
 
-  // Simula latência de rede
+  // Simula latência de rede realista
   await new Promise(r => setTimeout(r, 450));
 
-  /* ── Para produção: descomente o fetch ─────────────────────────
-  let dados;
-  try {
-    const res = await fetch('dados_saude_sp.json');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    dados = await res.json();
-  } catch(e) {
-    console.error('Fetch error:', e);
-    atualizarNina('Erro ao carregar dados. Tente novamente.', 'error');
-    setNinaEstado('neutra');
-    mostrarLoading(false);
-    return;
-  }
-  const medicamentos = dados.medicamentos;
-  ──────────────────────────────────────────────────────────────── */
   const medicamentos = DADOS_SAUDE_SP.medicamentos;
 
-  // Busca fuzzy por nome, genérico ou categoria
-  const encontrado = medicamentos.find(m => {
-    const n = normalizar(m.nome);
-    const g = normalizar(m.nome_generico);
-    const c = normalizar(m.categoria);
-    return n.includes(termoBusca) || g.includes(termoBusca) ||
-           termoBusca.includes(n) || c.includes(termoBusca);
-  });
+  // 1. Busca inteligente: verifica correspondência por marca comercial ou nome oficial
+  let marcaEncontrada = null;
+  let encontrado = null;
+
+  // Primeiro tenta identificar se é um nome comercial cadastrado
+  for (const m of medicamentos) {
+    if (m.nomes_comerciais && Array.isArray(m.nomes_comerciais)) {
+      const mc = m.nomes_comerciais.find(marca => {
+        const marcaNorm = normalizar(marca);
+        return marcaNorm === termoBusca || marcaNorm.startsWith(termoBusca) || termoBusca.includes(marcaNorm);
+      });
+      if (mc) {
+        marcaEncontrada = mc;
+        encontrado = m;
+        break;
+      }
+    }
+  }
+
+  // Se não foi por marca comercial, busca pelo princípio ativo, genérico ou categoria
+  if (!encontrado) {
+    encontrado = medicamentos.find(m => {
+      const n = normalizar(m.nome);
+      const g = normalizar(m.nome_generico);
+      const c = normalizar(m.categoria);
+      return n.includes(termoBusca) || g.includes(termoBusca) ||
+             termoBusca.includes(n) || c.includes(termoBusca);
+    });
+  }
 
   mostrarLoading(false);
 
@@ -902,18 +1418,20 @@ async function pesquisarMedicamento(termo) {
     appState.resultados      = [];
     appState.resultadosTotal = [];
     appState.medicamentoAtual = null;
+    appState.marcaReferenciaPesquisada = null;
     mostrarNaoEncontrado();
     return;
   }
 
   appState.medicamentoAtual = encontrado;
   appState.resultadosTotal  = encontrado.ubs;
+  appState.marcaReferenciaPesquisada = marcaEncontrada;
 
-  // Aplica filtro de zona
+  // Aplica filtro de zona e renderiza os resultados
   aplicarFiltroZona();
 }
 
-/** Aplica (ou reaaplica) o filtro de zona aos resultados actuais */
+/** Aplica (ou reaplica) o filtro de zona aos resultados atuais */
 function aplicarFiltroZona() {
   if (!appState.medicamentoAtual) return;
 
@@ -936,17 +1454,51 @@ function aplicarFiltroZona() {
   }
 
   // Sucesso na localização do medicamento
-  const msgSucesso = NINA_MSGS.encontrado(med.nome, filtradas.length);
-  atualizarNina(msgSucesso, 'success');
-  setNinaEstado('happy');
-  ninaComecarAFalar(msgSucesso);
+  if (appState.marcaReferenciaPesquisada) {
+    const marca = appState.marcaReferenciaPesquisada;
+    const msgSucesso = `Você buscou pela marca ${marca}. No SUS, esse medicamento é fornecido pelo princípio ativo ${med.nome} (${med.apresentacao}). Encontrei disponível em ${filtradas.length} UBS próxima${filtradas.length > 1 ? 's' : ''}! 🎉`;
+    atualizarNina(msgSucesso, 'success');
+    setNinaEstado('happy');
+    ninaComecarAFalar(`Você pesquisou pela marca comercial ${marca}. No SUS, esse medicamento é distribuído gratuitamente como ${med.nome}. Encontrei disponível em ${filtradas.length} unidades de saúde!`);
+
+    if (alertaComercialSus && alertaComercialTexto) {
+      alertaComercialTexto.innerHTML = `
+        Você pesquisou pela marca comercial <strong>${escapeHtml(marca)}</strong>.
+        Nas farmácias das UBS de São Paulo, o medicamento é distribuído sob a denominação genérica oficial de <strong>${escapeHtml(med.nome)} (${escapeHtml(med.nome_generico)} - ${escapeHtml(med.apresentacao)})</strong>, com idêntica eficácia, segurança e qualidade atestadas pela ANVISA.
+      `;
+      alertaComercialSus.hidden = false;
+    }
+  } else {
+    const msgSucesso = NINA_MSGS.encontrado(med.nome, filtradas.length);
+    atualizarNina(msgSucesso, 'success');
+    setNinaEstado('happy');
+    ninaComecarAFalar(msgSucesso);
+
+    if (alertaComercialSus && alertaComercialTexto) {
+      if (med.nomes_comerciais && med.nomes_comerciais.length) {
+        alertaComercialTexto.innerHTML = `
+          <strong>Atenção farmacêutica:</strong> <strong>${escapeHtml(med.nome)}</strong> é o princípio ativo oficial do SUS.
+          Marcas comerciais de referência populares com a mesma substância: <strong>${escapeHtml(med.nomes_comerciais.join(', '))}</strong>.
+        `;
+        alertaComercialSus.hidden = false;
+      } else {
+        alertaComercialSus.hidden = true;
+      }
+    }
+  }
 
   // Renderiza cards
   listaUbs.innerHTML = '';
   filtradas.forEach(ubs => listaUbs.appendChild(criarCardUbs(ubs, med.nome, med.apresentacao)));
 
   // Meta info
-  if (resultsTitleEl) resultsTitleEl.textContent = `${med.nome} · ${med.apresentacao}`;
+  if (resultsTitleEl) {
+    if (appState.marcaReferenciaPesquisada) {
+      resultsTitleEl.innerHTML = `${escapeHtml(med.nome)} · ${escapeHtml(med.apresentacao)} <span class="badge-tag-comercial ms-2"><i class="bi bi-tag-fill me-1"></i>Ref: ${escapeHtml(appState.marcaReferenciaPesquisada)}</span>`;
+    } else {
+      resultsTitleEl.textContent = `${med.nome} · ${med.apresentacao}`;
+    }
+  }
   if (resultsSubtitleEl) {
     const zonaLabel = zona === 'todas' ? 'Todas as Zonas' : `Zona ${zona}`;
     resultsSubtitleEl.textContent = `${filtradas.length} UBS · ${med.categoria} · ${zonaLabel}`;
@@ -960,7 +1512,7 @@ function aplicarFiltroZona() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   13. CONTROLO DA UI
+   14. CONTROLO DA UI
    ═══════════════════════════════════════════════════════════════════ */
 function mostrarLoading(show) { if (loadingState) loadingState.hidden = !show; }
 
@@ -987,13 +1539,16 @@ function mostrarFiltroVazio() {
 
 function resetarBusca() {
   pararFala();
+  fecharAutocomplete();
   ocultarResultados();
+  if (alertaComercialSus) alertaComercialSus.hidden = true;
   atualizarNina(NINA_MSGS.inicial, 'default');
   setNinaEstado('neutra');
   if (window.NinaAnimation) NinaAnimation.setState('idle');
   if (inputMed) inputMed.value  = '';
   if (selectZona) selectZona.value = 'todas';
   appState.ultimaBusca      = '';
+  appState.marcaReferenciaPesquisada = null;
   appState.resultados       = [];
   appState.resultadosTotal  = [];
   appState.medicamentoAtual = null;
@@ -1002,13 +1557,74 @@ function resetarBusca() {
 }
 
 /* ═══════════════════════════════════════════════════════════════════
-   14. EVENTOS
+   15. EVENTOS
    ═══════════════════════════════════════════════════════════════════ */
 
 // Formulário de pesquisa
 formPesquisa?.addEventListener('submit', e => {
   e.preventDefault();
+  fecharAutocomplete();
   pesquisarMedicamento(inputMed?.value || '');
+});
+
+// Autocomplete: digitação em tempo real (input event)
+inputMed?.addEventListener('input', () => {
+  const termo = inputMed.value;
+  if (!termo.trim()) {
+    renderizarPainelFocoInicial();
+    return;
+  }
+  const sugestoes = buscarSugestoesAutocomplete(termo);
+  renderizarAutocomplete(sugestoes, termo);
+});
+
+// Autocomplete: foco no input (exibe histórico ou sugestões)
+inputMed?.addEventListener('focus', () => {
+  const termo = inputMed.value;
+  if (!termo.trim()) {
+    renderizarPainelFocoInicial();
+  } else {
+    const sugestoes = buscarSugestoesAutocomplete(termo);
+    renderizarAutocomplete(sugestoes, termo);
+  }
+});
+
+// Autocomplete: navegação por teclado (ArrowDown, ArrowUp, Enter, Escape)
+inputMed?.addEventListener('keydown', (e) => {
+  if (!autocompleteDropdown || autocompleteDropdown.hidden || !appState.sugestoesAtuais.length) {
+    if (e.key === 'ArrowDown' && inputMed.value.trim() === '') {
+      renderizarPainelFocoInicial();
+      e.preventDefault();
+    }
+    return;
+  }
+
+  const total = appState.sugestoesAtuais.length;
+  const items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+
+  if (e.key === 'ArrowDown') {
+    e.preventDefault();
+    appState.activeSuggestionIndex = (appState.activeSuggestionIndex + 1) % total;
+    atualizarItemAtivo(items);
+  } else if (e.key === 'ArrowUp') {
+    e.preventDefault();
+    appState.activeSuggestionIndex = (appState.activeSuggestionIndex - 1 + total) % total;
+    atualizarItemAtivo(items);
+  } else if (e.key === 'Enter') {
+    if (appState.activeSuggestionIndex >= 0 && appState.activeSuggestionIndex < total) {
+      e.preventDefault();
+      selecionarSugestao(appState.activeSuggestionIndex);
+    }
+  } else if (e.key === 'Escape') {
+    fecharAutocomplete();
+  }
+});
+
+// Fecha o autocomplete ao clicar fora
+document.addEventListener('click', (e) => {
+  if (!formPesquisa?.contains(e.target) && !autocompleteDropdown?.contains(e.target)) {
+    fecharAutocomplete();
+  }
 });
 
 // Filtro de zona — dispara nova renderização sem pesquisar de novo
@@ -1021,12 +1637,14 @@ chips.forEach(chip => {
   chip.addEventListener('click', () => {
     const med = chip.dataset.med;
     if (inputMed) inputMed.value = med;
+    fecharAutocomplete();
     pesquisarMedicamento(med);
   });
 });
 
 // Botão de comando de voz (microfone)
 btnMic?.addEventListener('click', () => {
+  fecharAutocomplete();
   iniciarComandoDeVoz();
 });
 
@@ -1058,11 +1676,12 @@ btnLimparFiltro?.addEventListener('click', () => {
   aplicarFiltroZona();
 });
 
-// Tecla Escape — limpa fala e microfone
+// Tecla Escape — limpa fala, microfone e autocomplete
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     pararFala();
     pararComandoDeVoz();
+    fecharAutocomplete();
   }
 });
 
@@ -1093,7 +1712,7 @@ window.addEventListener('beforeunload', () => {
 });
 
 /* ═══════════════════════════════════════════════════════════════════
-   15. INICIALIZAÇÃO
+   16. INICIALIZAÇÃO
    ═══════════════════════════════════════════════════════════════════ */
 function init() {
   // Restaura preferências salvas
