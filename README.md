@@ -187,5 +187,5 @@ Como evolução contínua do **Busca Saúde** para versões futuras, estão plan
 - [ ] **Geolocalização e Ordenação por Proximidade:** Integração com a `Geolocation API` do navegador para calcular a distância em quilômetros entre o cidadão e cada UBS (utilizando as coordenadas geográficas já estruturadas na base), ordenando os resultados da unidade mais próxima para a mais distante.
 - [ ] **Integração com Base de Dados Externa (`JSON` / API):** Desacoplamento dos dados simulados para um arquivo `dados_saude_sp.json` externo consumido via `fetch()` assíncrono, preparando a arquitetura para futura conexão com dados abertos da Secretaria Municipal de Saúde (SMS-SP).
 - [ ] **Compartilhamento Rápido via WhatsApp:** Adição de botão direto nos cards das UBS para enviar o nome do medicamento, endereço e horário de funcionamento para familiares ou cuidadores.
-- [ ] **Autocomplete Inteligente na Busca:** Sugestões dinâmicas em tempo real conforme a digitação do usuário, contemplando nome comercial.
+- [x] **Autocomplete Inteligente na Busca:** Sugestões dinâmicas em tempo real conforme a digitação do usuário, contemplando nome comercial.
 
