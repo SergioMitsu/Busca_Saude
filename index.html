@@ -215,14 +215,22 @@
               <div class="input-row">
                 <div class="input-mic-group">
                   <input type="search" id="input-medicamento" class="input-medicamento"
-                    placeholder="Ex: Amoxicilina, Dipirona, Losartana…"
+                    placeholder="Ex: Dipirona, Novalgina, Losartana, Glifage…"
                     autocomplete="off" autocorrect="off" spellcheck="false"
-                    aria-label="Campo de busca: nome do medicamento"
-                    aria-describedby="search-hint" aria-required="true"/>
+                    aria-label="Campo de busca: nome do medicamento ou marca comercial"
+                    aria-describedby="search-hint" aria-required="true"
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-autocomplete="list"
+                    aria-controls="autocomplete-dropdown"
+                    aria-haspopup="listbox"/>
                   <button type="button" id="btn-mic" class="btn-mic"
                     aria-label="Pesquisar por comando de voz" title="Falar nome do remédio (Pesquisa por Voz)">
                     <i class="bi bi-mic-fill" aria-hidden="true"></i>
                   </button>
+
+                  <!-- Dropdown de Autocomplete Inteligente (Sugestões Dinâmicas e Nomes Comerciais) -->
+                  <div id="autocomplete-dropdown" class="autocomplete-dropdown" hidden role="listbox" aria-label="Sugestões de medicamentos e marcas comerciais"></div>
                 </div>
                 <button type="submit" id="btn-pesquisar" class="btn-pesquisar"
                   aria-label="Pesquisar medicamento">
@@ -259,14 +267,15 @@
 
             <!-- Chips de sugestão -->
             <div class="quick-suggestions" aria-label="Medicamentos mais buscados">
-              <span class="suggestions-label">Buscas frequentes:</span>
+              <span class="suggestions-label">Buscas frequentes (Genéricos e Marcas):</span>
               <div class="suggestions-list" role="list">
-                <button type="button" class="suggestion-chip" role="listitem" data-med="Amoxicilina">Amoxicilina</button>
                 <button type="button" class="suggestion-chip" role="listitem" data-med="Dipirona">Dipirona</button>
+                <button type="button" class="suggestion-chip suggestion-chip-brand" role="listitem" data-med="Novalgina" title="Marca comercial de Dipirona"><i class="bi bi-tag-fill me-1" aria-hidden="true"></i>Novalgina (Marca)</button>
+                <button type="button" class="suggestion-chip" role="listitem" data-med="Amoxicilina">Amoxicilina</button>
+                <button type="button" class="suggestion-chip suggestion-chip-brand" role="listitem" data-med="Glifage" title="Marca comercial de Metformina"><i class="bi bi-tag-fill me-1" aria-hidden="true"></i>Glifage (Marca)</button>
                 <button type="button" class="suggestion-chip" role="listitem" data-med="Losartana">Losartana</button>
-                <button type="button" class="suggestion-chip" role="listitem" data-med="Metformina">Metformina</button>
                 <button type="button" class="suggestion-chip" role="listitem" data-med="Omeprazol">Omeprazol</button>
-                <button type="button" class="suggestion-chip" role="listitem" data-med="Atenolol">Atenolol</button>
+                <button type="button" class="suggestion-chip suggestion-chip-brand" role="listitem" data-med="Advil" title="Marca comercial de Ibuprofeno"><i class="bi bi-tag-fill me-1" aria-hidden="true"></i>Advil (Marca)</button>
               </div>
             </div>
 
@@ -309,6 +318,19 @@
                 <span class="legend-dot" aria-hidden="true"></span>Em falta
               </span>
             </div>
+          </div>
+        </div>
+
+        <!-- Banner de Equivalência: Nome Comercial pesquisado vs Princípio Ativo SUS -->
+        <div id="alerta-comercial-sus" class="alerta-comercial-sus" hidden role="note" aria-live="polite">
+          <div class="alerta-comercial-icon" aria-hidden="true">
+            <i class="bi bi-info-circle-fill"></i>
+          </div>
+          <div class="alerta-comercial-content">
+            <strong class="alerta-comercial-title">
+              <i class="bi bi-tag-fill me-1" aria-hidden="true"></i>Equivalência de Marca Comercial no SUS
+            </strong>
+            <p id="alerta-comercial-texto" class="alerta-comercial-texto mb-0"></p>
           </div>
         </div>
 
