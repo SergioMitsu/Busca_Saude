@@ -13,9 +13,7 @@
 
 'use strict';
 
-import { ModuloMascote } from './modulo-mascote.js';
-
-export const ModuloBusca = {
+const ModuloBusca = {
   dados: {
     metadata: {},
     medicamentos: []
@@ -39,78 +37,19 @@ export const ModuloBusca = {
   },
 
   async carregarDados() {
+    if (window.DADOS_SAUDE && window.DADOS_SAUDE.medicamentos) {
+      this.dados = window.DADOS_SAUDE;
+      return;
+    }
     try {
       const res = await fetch('dados/dados_saude.json');
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       this.dados = await res.json();
     } catch (e) {
-      console.warn('Erro ao carregar dados/dados_saude.json por fetch (possível abertura via file://). Usando fallback embutido:', e);
-      this.dados = {
-        metadata: { aviso_legal: "Dados simulados estritamente para fins de prototipagem acadêmica" },
-        medicamentos: [
-          {
-            id: "med001",
-            nome: "Amoxicilina",
-            nome_generico: "Amoxicilina Tri-hidratada",
-            tipo_registro: "simples",
-            nomes_comerciais: ["Amoxil", "Novocilin", "Velamox"],
-            apresentacao: "500mg · Cápsula",
-            categoria: "Antibiótico",
-            validade_receita_dias": 10,
-            alerta_seguranca: "Atenção: Receita de antibióticos válida por 10 dias (RDC 471/2021 Anvisa).",
-            disponivel: true,
-            ubs: [
-              { id: "ubs001", zona: "Oeste", nome: "UBS Dr. José Leão – Vila Madalena", endereco: "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP", telefone: "(11) 3812-4400", horario: "Segunda a Sexta: 07h às 19h", coordenadas: { lat: -23.5558, lng: -46.6975 }, estoque_percentual: 75, obs: "Receita válida por 10 dias." },
-              { id: "ubs002", zona: "Centro", nome: "UBS Jardim Paulista", endereco: "Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP", telefone: "(11) 3255-5800", horario: "Segunda a Sexta: 07h às 17h", coordenadas: { lat: -23.5715, lng: -46.6543 }, estoque_percentual: 90, obs: "Disponível." }
-            ]
-          },
-          {
-            id: "med002",
-            nome: "Dipirona",
-            nome_generico: "Dipirona Monoidratada",
-            tipo_registro: "simples",
-            nomes_comerciais: ["Novalgina", "Anador", "Magnopyrol"],
-            apresentacao: "500mg · Comprimido",
-            categoria: "Analgésico / Antitérmico",
-            validade_receita_dias": 30,
-            disponivel: true,
-            ubs: [
-              { id: "ubs001", zona: "Oeste", nome: "UBS Dr. José Leão – Vila Madalena", endereco: "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP", telefone: "(11) 3812-4400", horario: "Segunda a Sexta: 07h às 19h", coordenadas: { lat: -23.5558, lng: -46.6975 }, estoque_percentual: 95, obs: "Disponível." },
-              { id: "ubs003", zona: "Norte", nome: "UBS Santana – Zona Norte", endereco: "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP", telefone: "(11) 2973-5600", horario: "Segunda a Sexta: 07h às 17h", coordenadas: { lat: -23.5014, lng: -46.6226 }, estoque_percentual: 80, obs: "Disponível." }
-            ]
-          },
-          {
-            id: "med004",
-            nome: "Metformina",
-            nome_generico: "Cloridrato de Metformina",
-            tipo_registro: "simples",
-            nomes_comerciais: ["Glifage", "Dimefor", "Glucoformin"],
-            apresentacao: "850mg · Comprimido",
-            categoria: "Antidiabético",
-            validade_receita_dias": 180,
-            disponivel: true,
-            ubs: [
-              { id: "ubs003", zona: "Norte", nome: "UBS Santana – Zona Norte", endereco: "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP", telefone: "(11) 2973-5600", horario: "Segunda a Sexta: 07h às 17h", coordenadas: { lat: -23.5014, lng: -46.6226 }, estoque_percentual: 65, obs: "Programa Diabetes." }
-            ]
-          },
-          {
-            id: "med014",
-            nome: "Lisador (Medicamento Composto)",
-            nome_generico: "Dipirona + Prometazina + Adifenina",
-            tipo_registro: "composto",
-            componentes: ["Dipirona Monoidratada (500mg)", "Cloridrato de Prometazina (5mg)", "Cloridrato de Adifenina (10mg)"],
-            nomes_comerciais: ["Lisador"],
-            apresentacao: "Comprimido / Gotas",
-            categoria: "Analgésico / Antiespasmódico Composto",
-            validade_receita_dias": 30,
-            alerta_seguranca: "Alerta de Alergia: Medicamento Composto com múltiplos princípios ativos (Dipirona, Prometazina e Adifenina). Não tomar se for alérgico a qualquer um dos componentes.",
-            disponivel: true,
-            ubs: [
-              { id: "ubs003", zona: "Norte", nome: "UBS Santana – Zona Norte", endereco: "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP", telefone: "(11) 2973-5600", horario: "Segunda a Sexta: 07h às 17h", coordenadas: { lat: -23.5014, lng: -46.6226 }, estoque_percentual: 80, obs: "Orientação farmacêutica no local." }
-            ]
-          }
-        ]
-      };
+      console.warn('Carregando base de contingência local:', e);
+      if (window.DADOS_SAUDE) {
+        this.dados = window.DADOS_SAUDE;
+      }
     }
   },
 

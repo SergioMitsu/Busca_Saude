@@ -10,7 +10,7 @@
 
 'use strict';
 
-export const ModuloAcessibilidade = {
+const ModuloAcessibilidade = {
   FONT_SCALES: [0.85, 1, 1.15, 1.30],
   FONT_LABELS: ['Muito pequena', 'Normal', 'Grande', 'Muito grande'],
 

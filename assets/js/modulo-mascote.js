@@ -11,7 +11,7 @@
 
 'use strict';
 
-export const ModuloMascote = {
+const ModuloMascote = {
   SPRITES: {
     neutra:       'assets/images/nina_neutra.png',
     falando:      'assets/images/nina_falando.png',
