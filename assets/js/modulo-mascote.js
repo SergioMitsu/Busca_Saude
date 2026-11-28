@@ -1,9 +1,11 @@
 /**
  * BuscaSaúde · js/modulo-mascote.js
  * ─────────────────────────────────────────────────────────────────────────────
+ * Módulo da Mascote Dra. Nina:
  * - Estado Idle: estática piscando naturalmente (nina_neutra <-> nina_piscando)
- * - Estado Falando: alterna sprites (nina_falando / nina_gesticulando) na
- *   introdução e nas respostas de medicamentos encontrados ou indisponíveis
+ * - Estado Falando: alterna sprites (nina_falando / nina_gesticulando) na introdução e nas respostas de medicamentos encontrados ou indisponíveis
+ * - Síntese de voz em pt-BR (Web Speech API) com voz feminina natural
+ * - Rotação e navegação das Dicas do Dia (ODS 3)
  * ─────────────────────────────────────────────────────────────────────────────
  */
 

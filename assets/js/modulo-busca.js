@@ -2,6 +2,12 @@
  * BuscaSaúde · js/modulo-busca.js
  * ─────────────────────────────────────────────────────────────────────────────
  * Módulo de Busca Inteligente de Medicamentos (usando dados/dados_saude.js)
+ * - Prioridade absoluta para Princípio Ativo (SUS)
+ * - Nomes Comerciais tratados como secundários (ex: "Dimefor" não interfere com "di")
+ * - Alerta de composição para Medicamentos Compostos / Associações (segurança contra alergias)
+ * - Identificação da validade legal da receita (10 dias p/ antibióticos RDC 471/2021)
+ * - Autocomplete com navegação por teclado e histórico local
+ * - Integração com comando de voz (SpeechRecognition)
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -152,6 +158,12 @@ const ModuloBusca = {
     return `${this.escapeHtml(antes)}<mark class="highlight-match">${this.escapeHtml(meio)}</mark>${this.escapeHtml(depois)}`;
   },
 
+    /**
+   * Lógica de Autocomplete Rigorosa:
+   * Prioridade 1: Princípio Ativo (SUS). Se o usuário digitar "di", dá match em Dipirona.
+   * Prioridade 2: Marca Comercial só aparece se o termo tiver 3+ letras E a marca começar com o termo,
+   * ou se o usuário digitar o nome exato da marca.
+   */
   buscarSugestoes(termo) {
     if (!termo || !termo.trim()) return [];
     const tNorm = this.normalizar(termo.trim());
@@ -161,7 +173,8 @@ const ModuloBusca = {
     this.dados.medicamentos.forEach(med => {
       const nomeNorm = this.normalizar(med.nome);
       const genNorm = this.normalizar(med.nome_generico);
-
+      
+      // Match no princípio ativo
       let scoreAtivo = 0;
       if (nomeNorm === tNorm) scoreAtivo = 100;
       else if (nomeNorm.startsWith(tNorm)) scoreAtivo = 85;
@@ -177,7 +190,8 @@ const ModuloBusca = {
           score: scoreAtivo
         });
       }
-
+      
+      // Match em nomes comerciais (apenas com prefixo claro e mínimo de 3 caracteres)
       if (med.nomes_comerciais && Array.isArray(med.nomes_comerciais)) {
         med.nomes_comerciais.forEach(marca => {
           const mNorm = this.normalizar(marca);
@@ -502,17 +516,20 @@ const ModuloBusca = {
 
     ModuloMascote.atualizarBalao(ModuloMascote.MSGS.buscando(termoLimpo), 'default');
 
+    // Simulação suave de latência
     await new Promise(r => setTimeout(r, 350));
 
     let encontrado = null;
     let marcaEncontrada = null;
-
+    
+    // 1. Prioridade Absoluta: Princípio Ativo (Nome ou Genérico)
     encontrado = this.dados.medicamentos.find(m => {
       const n = this.normalizar(m.nome);
       const g = this.normalizar(m.nome_generico);
       return n === tNorm || n.startsWith(tNorm) || tNorm.startsWith(n) || g.includes(tNorm);
     });
-
+    
+    // 2. Se não encontrou por princípio ativo, tenta match em nome comercial
     if (!encontrado) {
       for (const m of this.dados.medicamentos) {
         if (m.nomes_comerciais && Array.isArray(m.nomes_comerciais)) {
@@ -528,7 +545,8 @@ const ModuloBusca = {
         }
       }
     }
-
+    
+    // 3. Fallback: Categoria terapêutica
     if (!encontrado) {
       encontrado = this.dados.medicamentos.find(m => this.normalizar(m.categoria).includes(tNorm));
     }
@@ -585,6 +603,7 @@ const ModuloBusca = {
     ModuloMascote.reagirResultado('sucesso');
     ModuloMascote.falar(msgBalao);
 
+    // Alerta de Marca ou Medicamento Composto
     if (this.el.alertaComercial && this.el.alertaComercialTexto) {
       let alertaHtml = '';
 
@@ -620,14 +639,16 @@ const ModuloBusca = {
       this.el.alertaComercialTexto.innerHTML = alertaHtml;
       this.el.alertaComercial.hidden = false;
     }
-
+    
+    // Renderizar Cards das UBS
     if (this.el.listaUbs) {
       this.el.listaUbs.innerHTML = '';
       filtradas.forEach(ubs => {
         this.el.listaUbs.appendChild(this.criarCardUbs(ubs, med.nome, med.apresentacao));
       });
     }
-
+    
+    // Cabeçalho de resultados
     if (this.el.resultsTitle) {
       if (this.estado.marcaPesquisada) {
         this.el.resultsTitle.innerHTML = `${this.escapeHtml(med.nome)} · ${this.escapeHtml(med.apresentacao)} <span class="badge-tag-comercial ms-2">Ref: ${this.escapeHtml(this.estado.marcaPesquisada)}</span>`;
