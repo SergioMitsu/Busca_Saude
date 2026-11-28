@@ -17,13 +17,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet"/>
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css"/>
+  <link rel="stylesheet" href="assets/css/style.css"/>
 
   <!-- Pré-carregamento dos sprites da Dra. Nina (animação fluida sem atraso) -->
-  <link rel="preload" as="image" href="nina_neutra.png"/>
-  <link rel="preload" as="image" href="nina_falando.png"/>
-  <link rel="preload" as="image" href="nina_gesticulando.png"/>
-  <link rel="preload" as="image" href="nina_piscando.png"/>
+  <link rel="preload" as="image" href="assets/images/nina_neutra.png"/>
+  <link rel="preload" as="image" href="assets/images/nina_falando.png"/>
+  <link rel="preload" as="image" href="assets/images/nina_gesticulando.png"/>
+  <link rel="preload" as="image" href="assets/images/nina_piscando.png"/>
 </head>
 <body>
 
@@ -96,17 +96,13 @@
 
           <!-- Avatar Nina -->
           <div class="nina-avatar-wrapper" id="nina-avatar-wrapper">
-            <!-- Imagem oficial da Dra. Nina por Sprites (neutra, falando, piscando) -->
+            <!-- Imagem oficial da Dra. Nina por Sprites (neutra, falando, gesticulando, piscando) -->
             <img
               id="dra-nina-img"
-              src="nina_neutra.png"
-              alt="Dra. Nina, gata calico médica de jaleco branco, mascote virtual oficial do BuscaSaúde"
+              src="assets/images/nina_neutra.png"
+              alt="Dra. Nina, mascote virtual em jaleco médico do BuscaSaúde"
               class="nina-avatar-img dra-nina-animada"
-              onerror="this.style.display='none'; document.getElementById('nina-svg-fallback').style.display='flex';"
             />
-            <!-- SVG animado de contingência (caso a imagem não seja encontrada) -->
-            <div id="nina-svg-fallback" class="nina-svg-container nina-idle" style="display: none;"
-              role="img" aria-label="Dra. Nina, mascote gata calico com bata médica, animada"></div>
           </div>
 
           <!-- Coluna direita: balão + dica do dia -->
@@ -179,7 +175,7 @@
                 <div class="doc-icon" aria-hidden="true">📋</div>
                 <div>
                   <strong class="doc-title">Receita Médica</strong>
-                  <p class="doc-desc">Obrigatória para antibióticos e medicamentos controlados. Válida por 30 dias.</p>
+                  <p class="doc-desc">Obrigatória para antibióticos e medicamentos de controle especial. Válida por 10 dias para antibióticos (RDC 471/2021 Anvisa) e até 30 a 180 dias para uso contínuo.</p>
                 </div>
               </div>
               <div class="doc-item">
@@ -465,7 +461,7 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmFO1R3G2MFAFk2b3LTMIT+bT2y"
     crossorigin="anonymous"></script>
-  <!-- App JS -->
-  <script src="script.js"></script>
+  <!-- App JS (Compatível com abertura direta em arquivo local e web server) -->
+  <script defer src="assets/js/script.js"></script>
 </body>
 </html>
