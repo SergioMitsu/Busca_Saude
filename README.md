@@ -1,7 +1,7 @@
 # 🏥 Busca Saúde - MVP Acadêmico
 
 <p align="center">
-  <img src="nina_neutra.png" alt="Mascote Dra. Nina: gata calico com jaleco médico" width="180">
+  <img src="assets/images/nina_neutra.png" alt="Mascote Dra. Nina: gata calico com jaleco médico" width="180">
 </p>
 
 <p align="center">
@@ -52,16 +52,18 @@ O **Busca Saúde** é uma aplicação web (*Single Page Application*) que permit
 |---|---|---|
 | <img src="docs/prints/01-busca.png" alt="Tela inicial de busca com a Dra. Nina" width="300"> | <img src="docs/prints/02-zonas.png" alt="Filtro por zonas de São Paulo e rotas no Maps" width="300"> | <img src="docs/prints/03-contraste.png" alt="Modo de alto contraste e ajuste de fonte" width="300"> |
 
-### Acessibilidade implementada (WCAG 2.1 Nível AA)
+### Acessibilidade (Diretrizes WCAG 2.1 Nível AA)
 
-| Diretriz | No protótipo |
+O projeto foi desenvolvido **seguindo rigorosamente as diretrizes WCAG 2.1 Nível AA**, com foco em Interação Humano-Computador (IHC) e inclusão digital de idosos e pessoas com deficiência ou baixa visão:
+
+| Diretriz / Critério | Implementação no Projeto |
 |---|---|
-| **Controle Tipográfico** | Barra dedicada para redimensionamento dinâmico das fontes (`A-`, `A`, `A+`) |
-| **Conforto Visual** | Modo **Alto Contraste** integrado via CSS Design Tokens (`:root`) |
-| **Comunicação Múltipla** | Pesquisa por comando de voz e leitura em áudio de todos os resultados e alertas |
-| **Navegação Assistiva** | *Skip Link* para navegação rápida por teclado, HTML5 semântico e marcações **ARIA** dinâmicas para leitores de tela |
-| **Responsividade** | Arquitetura *Mobile First* projetada para uso confortável em celulares de pacientes e idosos |
-| **Privacidade** | Sem login, sem coleta de dados pessoais e sem rastreamento; preferências visuais salvas apenas no `localStorage` do dispositivo |
+| **Controle Tipográfico (1.4.4)** | Barra dedicada para redimensionamento dinâmico das fontes (`A-`, `A`, `A+`) via variáveis CSS `--font-scale` |
+| **Conforto Visual e Contraste (1.4.3 / 1.4.6)** | Modo **Alto Contraste** integrado via CSS Design Tokens (`:root` preto e amarelo `#FFD600` de alta visibilidade) |
+| **Comunicação Multimodal (1.1.1 / 1.2.1)** | Pesquisa por comando de voz (`SpeechRecognition`) e leitura de tela em áudio (`SpeechSynthesis`) com voz natural em `pt-BR` |
+| **Navegação Assistiva por Teclado (2.1.1)** | *Skip Link* no topo, navegação por setas e Enter no autocomplete, focus states visíveis e marcações **ARIA** dinâmicas (`role="combobox"`, `role="listbox"`, `aria-live`) |
+| **Responsividade e Reflow (1.4.10)** | Arquitetura *Mobile First* projetada para uso confortável em celulares de pacientes e idosos sem perda de funcionalidade |
+| **Privacidade e Transparência** | Sem login, sem coleta de dados pessoais e sem rastreamento; preferências visuais salvas apenas no `localStorage` do dispositivo |
 
 ## 🚀 Como Executar o Projeto Localmente
 Por se tratar de uma aplicação puramente front-end baseada em arquivos estáticos (HTML, CSS, JS e imagens), você pode executá-la de duas maneiras simples:
@@ -141,7 +143,7 @@ Para humanizar o atendimento digital e tornar a navegação mais acolhedora — 
 
 | Neutra | Falando | Gesticulando | Piscando |
 |---|---|---|---|
-| <img src="nina_neutra.png" width="120" alt="Dra. Nina neutra"> | <img src="nina_falando.png" width="120" alt="Dra. Nina falando"> | <img src="nina_gesticulando.png" width="120" alt="Dra. Nina gesticulando"> | <img src="nina_piscando.png" width="120" alt="Dra. Nina piscando"> |
+| <img src="assets/images/nina_neutra.png" width="120" alt="Dra. Nina neutra"> | <img src="assets/images/nina_falando.png" width="120" alt="Dra. Nina falando"> | <img src="assets/images/nina_gesticulando.png" width="120" alt="Dra. Nina gesticulando"> | <img src="assets/images/nina_piscando.png" width="120" alt="Dra. Nina piscando"> |
 
 As expressões mudam dinamicamente via JavaScript conforme o estado da interação (aguardando busca, falando resultados por áudio ou orientando sobre documentos).
 
@@ -168,14 +170,23 @@ Desenvolvido com dedicação como projeto universitário voltado à inovação s
 
 ```text
 Busca_Saude/
-├── README.md               ← Apresentação e documentação principal do projeto de software
 ├── index.html              ← Estrutura principal da aplicação (SPA) e marcação semântica ARIA
-├── style.css               ← Design Tokens (:root), layout Mobile First, animações e Alto Contraste
-├── script.js               ← Lógica de busca, base simulada SMS-SP, sprites e Web Speech API
-├── nina_neutra.png         ← Sprite padrão da Dra. Nina
-├── nina_falando.png        ← Sprite sincronizado com a síntese de voz
-├── nina_gesticulando.png   ← Sprite de orientação e destaque
-├── nina_piscando.png       ← Sprite de animação orgânica
+├── README.md               ← Apresentação e documentação técnica do projeto de software
+├── assets/
+│   ├── css/
+│   │   └── style.css       ← Design Tokens (:root), layout Mobile First, animações e Alto Contraste
+│   ├── js/
+│   │   ├── script.js       ← Ponto de entrada modular (ES6 bootstrap)
+│   │   ├── modulo-busca.js ← Motor de busca (prioridade em princípio ativo, compostos, autocomplete)
+│   │   ├── modulo-mascote.js ← Sprites da Dra. Nina, Web Speech API e dicas preventivas
+│   │   └── modulo-acessibilidade.js ← Escala de fontes, alto contraste e suporte a leitores de tela
+│   └── images/
+│       ├── nina_neutra.png         ← Sprite padrão da Dra. Nina
+│       ├── nina_falando.png        ← Sprite sincronizado com a síntese de voz
+│       ├── nina_gesticulando.png   ← Sprite de orientação e destaque
+│       └── nina_piscando.png       ← Sprite de animação orgânica
+├── dados/
+│   └── dados_saude.json    ← Base de dados simulada (medicamentos, composição, validade e UBSs)
 └── docs/
     └── prints/             ← Capturas de tela da interface
 ```
@@ -185,7 +196,7 @@ Busca_Saude/
 Como evolução contínua do **Busca Saúde** para versões futuras, estão planejadas as seguintes implementações técnicas e de experiência do usuário:
 
 - [ ] **Geolocalização e Ordenação por Proximidade:** Integração com a `Geolocation API` do navegador para calcular a distância em quilômetros entre o cidadão e cada UBS (utilizando as coordenadas geográficas já estruturadas na base), ordenando os resultados da unidade mais próxima para a mais distante.
-- [ ] **Integração com Base de Dados Externa (`JSON` / API):** Desacoplamento dos dados simulados para um arquivo `dados_saude_sp.json` externo consumido via `fetch()` assíncrono, preparando a arquitetura para futura conexão com dados abertos da Secretaria Municipal de Saúde (SMS-SP).
+- [x] **Integração com Base de Dados Externa (`JSON` / API):** Desacoplamento dos dados simulados para o arquivo `dados_saude.json` externo consumido via `fetch()` assíncrono com fallback de contingência.
 - [ ] **Compartilhamento Rápido via WhatsApp:** Adição de botão direto nos cards das UBS para enviar o nome do medicamento, endereço e horário de funcionamento para familiares ou cuidadores.
-- [x] **Autocomplete Inteligente na Busca:** Sugestões dinâmicas em tempo real conforme a digitação do usuário, contemplando nome comercial.
+- [x] **Autocomplete Inteligente na Busca:** Sugestões dinâmicas em tempo real conforme a digitação do usuário, com prioridade rigorosa para o princípio ativo e suporte a nomes comerciais de referência.
 
