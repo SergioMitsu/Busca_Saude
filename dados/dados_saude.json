@@ -1,0 +1,579 @@
+{
+  "metadata": {
+    "fonte": "Simulação baseada na RENAME / Secretaria Municipal de Saúde de São Paulo (SMS-SP)",
+    "atualizacao": "2026-06-01",
+    "versao": "2.1.0",
+    "aviso_legal": "Dados simulados estritamente para fins de prototipagem acadêmica (FMU Tech Inovação - ODS 3)"
+  },
+  "medicamentos": [
+    {
+      "id": "med001",
+      "nome": "Amoxicilina",
+      "nome_generico": "Amoxicilina Tri-hidratada",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Amoxil", "Novocilin", "Velamox"],
+      "apresentacao": "500mg · Cápsula",
+      "categoria": "Antibiótico",
+      "validade_receita_dias": 10,
+      "alerta_seguranca": "Atenção: Receita de antibióticos válida por 10 dias (RDC 471/2021 Anvisa).",
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs001",
+          "zona": "Oeste",
+          "nome": "UBS Dr. José Leão – Vila Madalena",
+          "endereco": "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP",
+          "cep": "05417-011",
+          "telefone": "(11) 3812-4400",
+          "horario": "Segunda a Sexta: 07h às 19h\nSábado: 07h às 13h",
+          "coordenadas": { "lat": -23.5558, "lng": -46.6975 },
+          "estoque_percentual": 75,
+          "obs": "Documentos necessários: RG, Cartão SUS e Receita (máx. 10 dias)."
+        },
+        {
+          "id": "ubs002",
+          "zona": "Centro",
+          "nome": "UBS Jardim Paulista",
+          "endereco": "Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP",
+          "cep": "01403-001",
+          "telefone": "(11) 3255-5800",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5715, "lng": -46.6543 },
+          "estoque_percentual": 90,
+          "obs": "Retirada na farmácia mediante receita médica válida."
+        },
+        {
+          "id": "ubs005",
+          "zona": "Centro",
+          "nome": "UBS Bela Vista – Centro",
+          "endereco": "Av. Brigadeiro Luís Antônio, 2393 – Bela Vista, São Paulo – SP",
+          "cep": "01401-000",
+          "telefone": "(11) 3107-2200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5618, "lng": -46.6549 },
+          "estoque_percentual": 55,
+          "obs": "Estoque moderado. Recomenda-se buscar nos próximos dias."
+        },
+        {
+          "id": "ubs007",
+          "zona": "Leste",
+          "nome": "UBS Itaquera – Zona Leste",
+          "endereco": "Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP",
+          "cep": "08230-010",
+          "telefone": "(11) 2074-5300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5342, "lng": -46.4475 },
+          "estoque_percentual": 40,
+          "obs": "Estoque baixo. Confirme por telefone antes de se deslocar."
+        }
+      ]
+    },
+    {
+      "id": "med002",
+      "nome": "Dipirona",
+      "nome_generico": "Dipirona Monoidratada",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Novalgina", "Anador", "Magnopyrol", "Baralgina M"],
+      "apresentacao": "500mg · Comprimido",
+      "categoria": "Analgésico / Antitérmico",
+      "validade_receita_dias": 30,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs001",
+          "zona": "Oeste",
+          "nome": "UBS Dr. José Leão – Vila Madalena",
+          "endereco": "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP",
+          "cep": "05417-011",
+          "telefone": "(11) 3812-4400",
+          "horario": "Segunda a Sexta: 07h às 19h\nSábado: 07h às 13h",
+          "coordenadas": { "lat": -23.5558, "lng": -46.6975 },
+          "estoque_percentual": 95,
+          "obs": "Disponível para retirada imediata."
+        },
+        {
+          "id": "ubs003",
+          "zona": "Norte",
+          "nome": "UBS Santana – Zona Norte",
+          "endereco": "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP",
+          "cep": "02011-001",
+          "telefone": "(11) 2973-5600",
+          "horario": "Segunda a Sexta: 07h às 17h\nSábado: 08h às 12h",
+          "coordenadas": { "lat": -23.5014, "lng": -46.6226 },
+          "estoque_percentual": 80,
+          "obs": "Disponível na farmácia da unidade."
+        },
+        {
+          "id": "ubs006",
+          "zona": "Oeste",
+          "nome": "UBS Lapa – Zona Oeste",
+          "endereco": "Rua Catão, 428 – Lapa, São Paulo – SP",
+          "cep": "05049-000",
+          "telefone": "(11) 3641-7700",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5314, "lng": -46.7008 },
+          "estoque_percentual": 60,
+          "obs": "Verifique a disponibilidade por telefone."
+        },
+        {
+          "id": "ubs007",
+          "zona": "Leste",
+          "nome": "UBS Itaquera – Zona Leste",
+          "endereco": "Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP",
+          "cep": "08230-010",
+          "telefone": "(11) 2074-5300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5342, "lng": -46.4475 },
+          "estoque_percentual": 88,
+          "obs": "Amplo estoque. Atendimento ágil."
+        }
+      ]
+    },
+    {
+      "id": "med003",
+      "nome": "Losartana",
+      "nome_generico": "Losartana Potássica",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Cozaar", "Aradois", "Losatec", "Corus", "Torlos"],
+      "apresentacao": "50mg · Comprimido",
+      "categoria": "Anti-hipertensivo",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs002",
+          "zona": "Centro",
+          "nome": "UBS Jardim Paulista",
+          "endereco": "Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP",
+          "cep": "01403-001",
+          "telefone": "(11) 3255-5800",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5715, "lng": -46.6543 },
+          "estoque_percentual": 70,
+          "obs": "Programa HIPERDIA disponível. Levar receita médica."
+        },
+        {
+          "id": "ubs004",
+          "zona": "Sul",
+          "nome": "UBS Campo Limpo – Zona Sul",
+          "endereco": "Av. Franz Voegeli, 40 – Campo Limpo, São Paulo – SP",
+          "cep": "05755-000",
+          "telefone": "(11) 5841-9000",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.6485, "lng": -46.7627 },
+          "estoque_percentual": 85,
+          "obs": "Cadastrado no Programa de Hipertensão."
+        },
+        {
+          "id": "ubs008",
+          "zona": "Sul",
+          "nome": "UBS Santo Amaro – Zona Sul",
+          "endereco": "Rua Amador Bueno, 536 – Santo Amaro, São Paulo – SP",
+          "cep": "04752-005",
+          "telefone": "(11) 5681-3200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.6500, "lng": -46.7100 },
+          "estoque_percentual": 62,
+          "obs": "Acompanhamento e dispensação contínua."
+        }
+      ]
+    },
+    {
+      "id": "med004",
+      "nome": "Metformina",
+      "nome_generico": "Cloridrato de Metformina",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Glifage", "Dimefor", "Glucoformin", "Risidon"],
+      "apresentacao": "850mg · Comprimido",
+      "categoria": "Antidiabético",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs003",
+          "zona": "Norte",
+          "nome": "UBS Santana – Zona Norte",
+          "endereco": "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP",
+          "cep": "02011-001",
+          "telefone": "(11) 2973-5600",
+          "horario": "Segunda a Sexta: 07h às 17h\nSábado: 08h às 12h",
+          "coordenadas": { "lat": -23.5014, "lng": -46.6226 },
+          "estoque_percentual": 65,
+          "obs": "Acompanhamento pelo programa de Diabetes."
+        },
+        {
+          "id": "ubs004",
+          "zona": "Sul",
+          "nome": "UBS Campo Limpo – Zona Sul",
+          "endereco": "Av. Franz Voegeli, 40 – Campo Limpo, São Paulo – SP",
+          "cep": "05755-000",
+          "telefone": "(11) 5841-9000",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.6485, "lng": -46.7627 },
+          "estoque_percentual": 45,
+          "obs": "Estoque moderado."
+        },
+        {
+          "id": "ubs009",
+          "zona": "Norte",
+          "nome": "UBS Jaçanã – Zona Norte",
+          "endereco": "Rua Jaçanã, 220 – Jaçanã, São Paulo – SP",
+          "cep": "02270-010",
+          "telefone": "(11) 2951-3300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.4700, "lng": -46.5900 },
+          "estoque_percentual": 78,
+          "obs": "Boa disponibilidade."
+        }
+      ]
+    },
+    {
+      "id": "med005",
+      "nome": "Atenolol",
+      "nome_generico": "Atenolol",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Atenol", "Angipress", "Plenacor"],
+      "apresentacao": "25mg · Comprimido",
+      "categoria": "Anti-hipertensivo (Betabloqueador)",
+      "validade_receita_dias": 180,
+      "disponivel": false,
+      "ubs": []
+    },
+    {
+      "id": "med006",
+      "nome": "Omeprazol",
+      "nome_generico": "Omeprazol",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Losec", "Peprazol", "Omepramix", "Gaspiren"],
+      "apresentacao": "20mg · Cápsula",
+      "categoria": "Protetor gástrico / Antiácido",
+      "validade_receita_dias": 30,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs005",
+          "zona": "Centro",
+          "nome": "UBS Bela Vista – Centro",
+          "endereco": "Av. Brigadeiro Luís Antônio, 2393 – Bela Vista, São Paulo – SP",
+          "cep": "01401-000",
+          "telefone": "(11) 3107-2200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5618, "lng": -46.6549 },
+          "estoque_percentual": 88,
+          "obs": "Disponível mediante receita médica."
+        },
+        {
+          "id": "ubs006",
+          "zona": "Oeste",
+          "nome": "UBS Lapa – Zona Oeste",
+          "endereco": "Rua Catão, 428 – Lapa, São Paulo – SP",
+          "cep": "05049-000",
+          "telefone": "(11) 3641-7700",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5314, "lng": -46.7008 },
+          "estoque_percentual": 72,
+          "obs": "Disponível."
+        },
+        {
+          "id": "ubs007",
+          "zona": "Leste",
+          "nome": "UBS Itaquera – Zona Leste",
+          "endereco": "Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP",
+          "cep": "08230-010",
+          "telefone": "(11) 2074-5300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5342, "lng": -46.4475 },
+          "estoque_percentual": 55,
+          "obs": "Retirada regular."
+        }
+      ]
+    },
+    {
+      "id": "med007",
+      "nome": "Captopril",
+      "nome_generico": "Captopril",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Capoten", "Hipocat"],
+      "apresentacao": "25mg · Comprimido",
+      "categoria": "Anti-hipertensivo (IECA)",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs004",
+          "zona": "Sul",
+          "nome": "UBS Campo Limpo – Zona Sul",
+          "endereco": "Av. Franz Voegeli, 40 – Campo Limpo, São Paulo – SP",
+          "cep": "05755-000",
+          "telefone": "(11) 5841-9000",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.6485, "lng": -46.7627 },
+          "estoque_percentual": 92,
+          "obs": "Programa HIPERDIA."
+        },
+        {
+          "id": "ubs008",
+          "zona": "Sul",
+          "nome": "UBS Santo Amaro – Zona Sul",
+          "endereco": "Rua Amador Bueno, 536 – Santo Amaro, São Paulo – SP",
+          "cep": "04752-005",
+          "telefone": "(11) 5681-3200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.6500, "lng": -46.7100 },
+          "estoque_percentual": 67,
+          "obs": "Levar receita médica atualizada."
+        }
+      ]
+    },
+    {
+      "id": "med008",
+      "nome": "Ibuprofeno",
+      "nome_generico": "Ibuprofeno",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Alivium", "Advil", "Buscofem", "Dalsy", "Spidufen"],
+      "apresentacao": "400mg · Comprimido",
+      "categoria": "Anti-inflamatório / Analgésico",
+      "validade_receita_dias": 30,
+      "disponivel": false,
+      "ubs": []
+    },
+    {
+      "id": "med009",
+      "nome": "Paracetamol",
+      "nome_generico": "Paracetamol",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Tylenol", "Parador", "Dôrico"],
+      "apresentacao": "500mg · Comprimido",
+      "categoria": "Analgésico / Antitérmico",
+      "validade_receita_dias": 30,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs001",
+          "zona": "Oeste",
+          "nome": "UBS Dr. José Leão – Vila Madalena",
+          "endereco": "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP",
+          "cep": "05417-011",
+          "telefone": "(11) 3812-4400",
+          "horario": "Segunda a Sexta: 07h às 19h\nSábado: 07h às 13h",
+          "coordenadas": { "lat": -23.5558, "lng": -46.6975 },
+          "estoque_percentual": 94,
+          "obs": "Disponível sem receita."
+        },
+        {
+          "id": "ubs003",
+          "zona": "Norte",
+          "nome": "UBS Santana – Zona Norte",
+          "endereco": "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP",
+          "cep": "02011-001",
+          "telefone": "(11) 2973-5600",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5014, "lng": -46.6226 },
+          "estoque_percentual": 82,
+          "obs": "Disponível na farmácia da unidade."
+        },
+        {
+          "id": "ubs007",
+          "zona": "Leste",
+          "nome": "UBS Itaquera – Zona Leste",
+          "endereco": "Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP",
+          "cep": "08230-010",
+          "telefone": "(11) 2074-5300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5342, "lng": -46.4475 },
+          "estoque_percentual": 76,
+          "obs": "Estoque regularizado."
+        }
+      ]
+    },
+    {
+      "id": "med010",
+      "nome": "Sinvastatina",
+      "nome_generico": "Sinvastatina",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Zocor", "Sinvax", "Vaslip"],
+      "apresentacao": "20mg · Comprimido",
+      "categoria": "Hipolipemiante (Colesterol)",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs002",
+          "zona": "Centro",
+          "nome": "UBS Jardim Paulista",
+          "endereco": "Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP",
+          "cep": "01403-001",
+          "telefone": "(11) 3255-5800",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5715, "lng": -46.6543 },
+          "estoque_percentual": 88,
+          "obs": "Necessário receita médica."
+        },
+        {
+          "id": "ubs008",
+          "zona": "Sul",
+          "nome": "UBS Santo Amaro – Zona Sul",
+          "endereco": "Rua Amador Bueno, 536 – Santo Amaro, São Paulo – SP",
+          "cep": "04752-005",
+          "telefone": "(11) 5681-3200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.6500, "lng": -46.7100 },
+          "estoque_percentual": 69,
+          "obs": "Programa de prevenção cardiovascular."
+        }
+      ]
+    },
+    {
+      "id": "med011",
+      "nome": "Salbutamol",
+      "nome_generico": "Sulfato de Salbutamol",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Aerolin", "Aerodini"],
+      "apresentacao": "100mcg/dose · Spray aerossol",
+      "categoria": "Broncodilatador (Asma / DPOC)",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs005",
+          "zona": "Centro",
+          "nome": "UBS Bela Vista – Centro",
+          "endereco": "Av. Brigadeiro Luís Antônio, 2393 – Bela Vista, São Paulo – SP",
+          "cep": "01401-000",
+          "telefone": "(11) 3107-2200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5618, "lng": -46.6549 },
+          "estoque_percentual": 85,
+          "obs": "Disponível na farmácia."
+        },
+        {
+          "id": "ubs004",
+          "zona": "Sul",
+          "nome": "UBS Campo Limpo – Zona Sul",
+          "endereco": "Av. Franz Voegeli, 40 – Campo Limpo, São Paulo – SP",
+          "cep": "05755-000",
+          "telefone": "(11) 5841-9000",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.6485, "lng": -46.7627 },
+          "estoque_percentual": 58,
+          "obs": "Acompanhamento do programa respiratório."
+        }
+      ]
+    },
+    {
+      "id": "med012",
+      "nome": "Hidroclorotiazida",
+      "nome_generico": "Hidroclorotiazida",
+      "tipo_registro": "simples",
+      "nomes_comerciais": ["Clorana", "Drenol"],
+      "apresentacao": "25mg · Comprimido",
+      "categoria": "Diurético / Anti-hipertensivo",
+      "validade_receita_dias": 180,
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs001",
+          "zona": "Oeste",
+          "nome": "UBS Dr. José Leão – Vila Madalena",
+          "endereco": "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP",
+          "cep": "05417-011",
+          "telefone": "(11) 3812-4400",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5558, "lng": -46.6975 },
+          "estoque_percentual": 90,
+          "obs": "Disponível no HIPERDIA."
+        },
+        {
+          "id": "ubs002",
+          "zona": "Centro",
+          "nome": "UBS Jardim Paulista",
+          "endereco": "Alameda Joaquim Eugênio de Lima, 1400 – Jardim Paulista, São Paulo – SP",
+          "cep": "01403-001",
+          "telefone": "(11) 3255-5800",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5715, "lng": -46.6543 },
+          "estoque_percentual": 75,
+          "obs": "Disponível mediante receita médica."
+        }
+      ]
+    },
+    {
+      "id": "med013",
+      "nome": "Amoxicilina + Clavulanato",
+      "nome_generico": "Amoxicilina Tri-hidratada + Clavulanato de Potássio",
+      "tipo_registro": "composto",
+      "componentes": ["Amoxicilina (500mg)", "Ácido Clavulânico / Clavulanato (125mg)"],
+      "nomes_comerciais": ["Clavulin", "Novamox 2x"],
+      "apresentacao": "500mg + 125mg · Comprimido Revestido",
+      "categoria": "Antibiótico Composto (Associação)",
+      "validade_receita_dias": 10,
+      "alerta_seguranca": "Medicamento Composto: Associação com Clavulanato de Potássio. Receita válida por 10 dias (RDC 471/2021 Anvisa).",
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs001",
+          "zona": "Oeste",
+          "nome": "UBS Dr. José Leão – Vila Madalena",
+          "endereco": "Rua Mourato Coelho, 872 – Vila Madalena, São Paulo – SP",
+          "cep": "05417-011",
+          "telefone": "(11) 3812-4400",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5558, "lng": -46.6975 },
+          "estoque_percentual": 65,
+          "obs": "Retirada com receita médica válida de controle especial (máx 10 dias)."
+        },
+        {
+          "id": "ubs005",
+          "zona": "Centro",
+          "nome": "UBS Bela Vista – Centro",
+          "endereco": "Av. Brigadeiro Luís Antônio, 2393 – Bela Vista, São Paulo – SP",
+          "cep": "01401-000",
+          "telefone": "(11) 3107-2200",
+          "horario": "Segunda a Sexta: 07h às 19h",
+          "coordenadas": { "lat": -23.5618, "lng": -46.6549 },
+          "estoque_percentual": 70,
+          "obs": "Retirada com receita médica de controle especial."
+        }
+      ]
+    },
+    {
+      "id": "med014",
+      "nome": "Lisador (Medicamento Composto)",
+      "nome_generico": "Dipirona + Prometazina + Adifenina",
+      "tipo_registro": "composto",
+      "componentes": ["Dipirona Monoidratada (500mg)", "Cloridrato de Prometazina (5mg)", "Cloridrato de Adifenina (10mg)"],
+      "nomes_comerciais": ["Lisador"],
+      "apresentacao": "Comprimido / Gotas",
+      "categoria": "Analgésico / Antiespasmódico Composto",
+      "validade_receita_dias": 30,
+      "alerta_seguranca": "Alerta de Alergia: Medicamento Composto com múltiplos princípios ativos (Dipirona, Prometazina e Adifenina). Não tomar se for alérgico a qualquer um dos componentes.",
+      "disponivel": true,
+      "ubs": [
+        {
+          "id": "ubs003",
+          "zona": "Norte",
+          "nome": "UBS Santana – Zona Norte",
+          "endereco": "Rua Voluntários da Pátria, 1553 – Santana, São Paulo – SP",
+          "cep": "02011-001",
+          "telefone": "(11) 2973-5600",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5014, "lng": -46.6226 },
+          "estoque_percentual": 80,
+          "obs": "Atenção alérgica a dipirona ou anti-histamínicos."
+        },
+        {
+          "id": "ubs007",
+          "zona": "Leste",
+          "nome": "UBS Itaquera – Zona Leste",
+          "endereco": "Rua Mário Fonseca, 90 – Itaquera, São Paulo – SP",
+          "cep": "08230-010",
+          "telefone": "(11) 2074-5300",
+          "horario": "Segunda a Sexta: 07h às 17h",
+          "coordenadas": { "lat": -23.5342, "lng": -46.4475 },
+          "estoque_percentual": 60,
+          "obs": "Retirada orientada por farmacêutico."
+        }
+      ]
+    }
+  ]
+}
