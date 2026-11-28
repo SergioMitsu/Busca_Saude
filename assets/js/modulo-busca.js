@@ -1,13 +1,7 @@
 /**
  * BuscaSaúde · js/modulo-busca.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Módulo de Busca Inteligente de Medicamentos:
- * - Prioridade absoluta para Princípio Ativo (SUS)
- * - Nomes Comerciais tratados como secundários (ex: "Dimefor" não interfere com "di")
- * - Alerta de composição para Medicamentos Compostos / Associações (segurança contra alergias)
- * - Identificação da validade legal da receita (10 dias p/ antibióticos RDC 471/2021)
- * - Autocomplete com navegação por teclado e histórico local
- * - Integração com comando de voz (SpeechRecognition)
+ * Módulo de Busca Inteligente de Medicamentos (usando dados/dados_saude.js)
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -30,26 +24,15 @@ const ModuloBusca = {
     recognition: null
   },
 
-  async init() {
-    await this.carregarDados();
+  init() {
+    this.carregarDados();
     this.vincularElementos();
     this.vincularEventos();
   },
 
-  async carregarDados() {
-    if (window.DADOS_SAUDE && window.DADOS_SAUDE.medicamentos) {
+  carregarDados() {
+    if (window.DADOS_SAUDE && Array.isArray(window.DADOS_SAUDE.medicamentos)) {
       this.dados = window.DADOS_SAUDE;
-      return;
-    }
-    try {
-      const res = await fetch('dados/dados_saude.json');
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      this.dados = await res.json();
-    } catch (e) {
-      console.warn('Carregando base de contingência local:', e);
-      if (window.DADOS_SAUDE) {
-        this.dados = window.DADOS_SAUDE;
-      }
     }
   },
 
@@ -133,8 +116,14 @@ const ModuloBusca = {
     });
 
     this.el.btnVozResultados?.addEventListener('click', () => {
-      const txt = this.gerarResumoVoz();
-      ModuloMascote.falar(txt);
+      if (ModuloMascote.estado.falando) {
+        ModuloMascote.pararFala();
+        return;
+      }
+      this.el.btnVozResultados.classList.add('speaking');
+      const sp = this.el.btnVozResultados.querySelector('span');
+      if (sp) sp.textContent = 'Parar';
+      ModuloMascote.falar(this.gerarResumoVoz());
     });
   },
 
@@ -163,12 +152,6 @@ const ModuloBusca = {
     return `${this.escapeHtml(antes)}<mark class="highlight-match">${this.escapeHtml(meio)}</mark>${this.escapeHtml(depois)}`;
   },
 
-  /**
-   * Lógica de Autocomplete Rigorosa:
-   * Prioridade 1: Princípio Ativo (SUS). Se o usuário digitar "di", dá match em Dipirona.
-   * Prioridade 2: Marca Comercial só aparece se o termo tiver 3+ letras E a marca começar com o termo,
-   * ou se o usuário digitar o nome exato da marca.
-   */
   buscarSugestoes(termo) {
     if (!termo || !termo.trim()) return [];
     const tNorm = this.normalizar(termo.trim());
@@ -179,7 +162,6 @@ const ModuloBusca = {
       const nomeNorm = this.normalizar(med.nome);
       const genNorm = this.normalizar(med.nome_generico);
 
-      // Match no princípio ativo
       let scoreAtivo = 0;
       if (nomeNorm === tNorm) scoreAtivo = 100;
       else if (nomeNorm.startsWith(tNorm)) scoreAtivo = 85;
@@ -196,18 +178,13 @@ const ModuloBusca = {
         });
       }
 
-      // Match em nomes comerciais (apenas com prefixo claro e mínimo de 3 caracteres)
       if (med.nomes_comerciais && Array.isArray(med.nomes_comerciais)) {
         med.nomes_comerciais.forEach(marca => {
           const mNorm = this.normalizar(marca);
           let scoreMarca = 0;
-          if (mNorm === tNorm) {
-            scoreMarca = 90;
-          } else if (tNorm.length >= 3 && mNorm.startsWith(tNorm)) {
-            scoreMarca = 70;
-          } else if (tNorm.length >= 4 && mNorm.includes(tNorm)) {
-            scoreMarca = 30;
-          }
+          if (mNorm === tNorm) scoreMarca = 90;
+          else if (tNorm.length >= 3 && mNorm.startsWith(tNorm)) scoreMarca = 70;
+          else if (tNorm.length >= 4 && mNorm.includes(tNorm)) scoreMarca = 30;
 
           if (scoreMarca > 0) {
             sugestoesMarcas.push({
@@ -226,7 +203,6 @@ const ModuloBusca = {
     sugestoesPrincipais.sort((a, b) => b.score - a.score);
     sugestoesMarcas.sort((a, b) => b.score - a.score);
 
-    // Princípios ativos vêm sempre primeiro
     const unificadas = [...sugestoesPrincipais, ...sugestoesMarcas];
     const vistas = new Set();
     const resultado = [];
@@ -268,7 +244,7 @@ const ModuloBusca = {
     let html = `
       <div class="autocomplete-header">
         <span><i class="bi bi-stars me-1" aria-hidden="true"></i>Sugestões de Busca</span>
-        <span class="d-none d-sm-inline text-muted" style="font-weight:600;font-size:11px;">↑↓ navegar · Enter selecionar</span>
+        <span class="d-none d-sm-inline" style="font-weight:600;font-size:11px;">↑↓ navegar · Enter selecionar</span>
       </div>
       <ul class="autocomplete-list" role="listbox">
     `;
@@ -292,9 +268,7 @@ const ModuloBusca = {
                 <strong>Princípio Ativo SUS:</strong> ${this.escapeHtml(med.nome)} · ${this.escapeHtml(med.apresentacao)}
               </div>
             </div>
-            <div class="autocomplete-item-badge">
-              ${badgeEstoque}
-            </div>
+            <div class="autocomplete-item-badge">${badgeEstoque}</div>
           </li>
         `;
       } else {
@@ -303,7 +277,7 @@ const ModuloBusca = {
           : '';
 
         const badgeTipo = med.tipo_registro === 'composto'
-          ? `<span class="badge-tag-comercial" style="background:#FFF3E0;color:#E65100;border-color:#FFE0B2;"><i class="bi bi-exclamation-triangle-fill me-1"></i>Associação / Composto</span>`
+          ? `<span class="badge-tag-comercial"><i class="bi bi-exclamation-triangle-fill me-1"></i>Associação / Composto</span>`
           : `<span class="badge-tag-generico"><i class="bi bi-capsule me-1"></i>Princípio Ativo</span>`;
 
         html += `
@@ -318,9 +292,7 @@ const ModuloBusca = {
               </div>
               ${marcaHint}
             </div>
-            <div class="autocomplete-item-badge">
-              ${badgeEstoque}
-            </div>
+            <div class="autocomplete-item-badge">${badgeEstoque}</div>
           </li>
         `;
       }
@@ -434,11 +406,11 @@ const ModuloBusca = {
           <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="${this.escapeHtml(item)}" tabindex="0">
             <div class="autocomplete-item-content">
               <div class="d-flex align-items-center gap-2">
-                <i class="bi bi-clock text-muted" aria-hidden="true"></i>
+                <i class="bi bi-clock" aria-hidden="true"></i>
                 <strong class="autocomplete-item-name" style="font-size:var(--fs-sm);">${this.escapeHtml(item)}</strong>
               </div>
             </div>
-            <i class="bi bi-arrow-up-left text-muted" aria-hidden="true"></i>
+            <i class="bi bi-arrow-up-left" aria-hidden="true"></i>
           </li>
         `;
       });
@@ -450,19 +422,13 @@ const ModuloBusca = {
         </div>
         <ul class="autocomplete-list" role="listbox">
           <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Dipirona" tabindex="0">
-            <div class="autocomplete-item-content">
-              <strong>Dipirona</strong> <span class="text-muted">(Princípio Ativo SUS)</span>
-            </div>
+            <div class="autocomplete-item-content"><strong>Dipirona</strong> <span>(Princípio Ativo SUS)</span></div>
           </li>
           <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Amoxicilina" tabindex="0">
-            <div class="autocomplete-item-content">
-              <strong>Amoxicilina</strong> <span class="text-muted">(Antibiótico - Receita 10 dias)</span>
-            </div>
+            <div class="autocomplete-item-content"><strong>Amoxicilina</strong> <span>(Antibiótico - Receita 10 dias)</span></div>
           </li>
           <li class="autocomplete-item autocomplete-recent-item" role="option" data-termo="Lisador" tabindex="0">
-            <div class="autocomplete-item-content">
-              <strong>Lisador</strong> <span class="badge-tag-comercial" style="font-size:10px;">Associação Composta</span>
-            </div>
+            <div class="autocomplete-item-content"><strong>Lisador</strong> <span class="badge-tag-comercial">Associação Composta</span></div>
           </li>
         </ul>
       `;
@@ -534,22 +500,19 @@ const ModuloBusca = {
     this.ocultarResultados();
     if (this.el.alertaComercial) this.el.alertaComercial.hidden = true;
 
-    ModuloMascote.atualizarBalao(ModuloMascote.MSGS.buscando(termoLimpo), 'typing');
+    ModuloMascote.atualizarBalao(ModuloMascote.MSGS.buscando(termoLimpo), 'default');
 
-    // Simulação suave de latência
-    await new Promise(r => setTimeout(r, 400));
+    await new Promise(r => setTimeout(r, 350));
 
     let encontrado = null;
     let marcaEncontrada = null;
 
-    // 1. Prioridade Absoluta: Princípio Ativo (Nome ou Genérico)
     encontrado = this.dados.medicamentos.find(m => {
       const n = this.normalizar(m.nome);
       const g = this.normalizar(m.nome_generico);
       return n === tNorm || n.startsWith(tNorm) || tNorm.startsWith(n) || g.includes(tNorm);
     });
 
-    // 2. Se não encontrou por princípio ativo, tenta match em nome comercial
     if (!encontrado) {
       for (const m of this.dados.medicamentos) {
         if (m.nomes_comerciais && Array.isArray(m.nomes_comerciais)) {
@@ -566,7 +529,6 @@ const ModuloBusca = {
       }
     }
 
-    // 3. Fallback: Categoria terapêutica
     if (!encontrado) {
       encontrado = this.dados.medicamentos.find(m => this.normalizar(m.categoria).includes(tNorm));
     }
@@ -611,34 +573,28 @@ const ModuloBusca = {
       return;
     }
 
-    // Sucesso
-    ModuloMascote.reagirResultado('sucesso');
-    let msgFala = '';
-
+    let msgBalao = '';
     if (this.estado.marcaPesquisada) {
       const marca = this.estado.marcaPesquisada;
-      const msgSucesso = `Você buscou pela marca ${marca}. No SUS, esse medicamento é dispensado pelo princípio ativo ${med.nome} (${med.apresentacao}). Encontrei disponível em ${filtradas.length} UBS próxima${filtradas.length > 1 ? 's' : ''}! 🎉`;
-      ModuloMascote.atualizarBalao(msgSucesso, 'success');
-      msgFala = `Você pesquisou pela marca ${marca}. No SUS, o fornecimento é feito pelo princípio ativo ${med.nome}. Encontrei disponível em ${filtradas.length} unidades de saúde.`;
+      msgBalao = `Você buscou pela marca ${marca}. No SUS, esse medicamento é dispensado pelo princípio ativo ${med.nome} (${med.apresentacao}). Encontrei disponível em ${filtradas.length} UBS próxima${filtradas.length > 1 ? 's' : ''}! 🎉`;
     } else {
-      const msgSucesso = ModuloMascote.MSGS.encontrado(med.nome, filtradas.length);
-      ModuloMascote.atualizarBalao(msgSucesso, 'success');
-      msgFala = msgSucesso;
+      msgBalao = ModuloMascote.MSGS.encontrado(med.nome, filtradas.length);
     }
 
-    ModuloMascote.falar(msgFala);
+    ModuloMascote.atualizarBalao(msgBalao, 'success');
+    ModuloMascote.reagirResultado('sucesso');
+    ModuloMascote.falar(msgBalao);
 
-    // Alerta de Marca ou Medicamento Composto
     if (this.el.alertaComercial && this.el.alertaComercialTexto) {
       let alertaHtml = '';
 
       if (med.tipo_registro === 'composto') {
         alertaHtml += `
-          <div class="mb-1 text-danger fw-bold">
+          <div class="mb-1 fw-bold">
             <i class="bi bi-shield-exclamation me-1"></i>ALERTA DE SEGURANÇA E ALERGIA (MEDICAMENTO COMPOSTO)
           </div>
           <div>${this.escapeHtml(med.alerta_seguranca)}</div>
-          <div class="mt-1 small text-dark"><strong>Componentes da associação:</strong> ${this.escapeHtml(med.componentes.join(' + '))}</div>
+          <div class="mt-1 small"><strong>Componentes da associação:</strong> ${this.escapeHtml(med.componentes.join(' + '))}</div>
         `;
       } else if (this.estado.marcaPesquisada) {
         alertaHtml += `
@@ -654,7 +610,7 @@ const ModuloBusca = {
 
       if (med.validade_receita_dias) {
         alertaHtml += `
-          <div class="mt-2 pt-2 border-top small ${med.validade_receita_dias === 10 ? 'text-danger fw-bold' : 'text-muted'}">
+          <div class="mt-2 pt-2 border-top small">
             <i class="bi bi-file-earmark-medical me-1"></i>Validade legal da receita médica: <strong>${med.validade_receita_dias} dias</strong>
             ${med.validade_receita_dias === 10 ? ' (Antibiótico sujeito a controle especial - RDC 471/2021 da Anvisa)' : ''}.
           </div>
@@ -665,7 +621,6 @@ const ModuloBusca = {
       this.el.alertaComercial.hidden = false;
     }
 
-    // Renderizar Cards das UBS
     if (this.el.listaUbs) {
       this.el.listaUbs.innerHTML = '';
       filtradas.forEach(ubs => {
@@ -673,7 +628,6 @@ const ModuloBusca = {
       });
     }
 
-    // Cabeçalho de resultados
     if (this.el.resultsTitle) {
       if (this.estado.marcaPesquisada) {
         this.el.resultsTitle.innerHTML = `${this.escapeHtml(med.nome)} · ${this.escapeHtml(med.apresentacao)} <span class="badge-tag-comercial ms-2">Ref: ${this.escapeHtml(this.estado.marcaPesquisada)}</span>`;
@@ -801,7 +755,7 @@ const ModuloBusca = {
         this.estado.gravandoVoz = true;
         this.el.btnMic?.classList.add('listening');
         if (this.el.voiceBadge) this.el.voiceBadge.hidden = false;
-        ModuloMascote.atualizarBalao('Estou ouvindo! Fale o nome do remédio...', 'typing');
+        ModuloMascote.atualizarBalao('Estou ouvindo! Fale o nome do remédio...', 'default');
       };
 
       this.estado.recognition.onresult = (ev) => {

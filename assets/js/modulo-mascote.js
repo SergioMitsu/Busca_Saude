@@ -1,11 +1,9 @@
 /**
  * BuscaSaúde · js/modulo-mascote.js
  * ─────────────────────────────────────────────────────────────────────────────
- * Módulo da Mascote Dra. Nina:
- * - Ciclo de piscar espontâneo via troca de sprites ('nina_piscando.png' -> 'nina_neutra.png')
- * - Animação de fala com sprites dinâmicos ('nina_falando.png', 'nina_gesticulando.png')
- * - Síntese de voz em pt-BR (Web Speech API) com voz feminina natural
- * - Rotação e navegação das Dicas do Dia (ODS 3)
+ * - Estado Idle: estática piscando naturalmente (nina_neutra <-> nina_piscando)
+ * - Estado Falando: alterna sprites (nina_falando / nina_gesticulando) na
+ *   introdução e nas respostas de medicamentos encontrados ou indisponíveis
  * ─────────────────────────────────────────────────────────────────────────────
  */
 
@@ -67,11 +65,22 @@ const ModuloMascote = {
     });
   },
 
+  obterTextoCaixaResposta() {
+    const txt = document.getElementById('dra-nina-balao')?.querySelector('.balloon-text')?.textContent?.trim();
+    return txt || this.MSGS.inicial;
+  },
+
   vincularEventos() {
-    document.getElementById('btn-narrar-nina')?.addEventListener('click', () => {
-      const txt = document.getElementById('dra-nina-balao')?.querySelector('.balloon-text')?.textContent;
+    // Botão "Narrar" da barra superior: narra a caixa de resposta com animação de fala
+    document.getElementById('btn-voz-global')?.addEventListener('click', () => {
       if (this.estado.falando) this.pararFala();
-      else this.falar(txt || this.MSGS.inicial);
+      else this.falar(this.obterTextoCaixaResposta());
+    });
+
+    // Botão de áudio interno do balão da Dra. Nina
+    document.getElementById('btn-narrar-nina')?.addEventListener('click', () => {
+      if (this.estado.falando) this.pararFala();
+      else this.falar(this.obterTextoCaixaResposta());
     });
 
     document.getElementById('btn-parar-toast')?.addEventListener('click', () => this.pararFala());
@@ -89,7 +98,9 @@ const ModuloMascote = {
   trocarSprite(tipo) {
     const imgEl = document.getElementById('dra-nina-img');
     if (!imgEl || !this.SPRITES[tipo]) return;
-    imgEl.src = this.SPRITES[tipo];
+    if (!imgEl.src.endsWith(this.SPRITES[tipo])) {
+      imgEl.src = this.SPRITES[tipo];
+    }
   },
 
   piscar() {
@@ -102,12 +113,9 @@ const ModuloMascote = {
 
   iniciarCicloPiscar() {
     clearTimeout(this.estado.timeoutPiscar);
-    const intervalo = 2800 + Math.random() * 2800;
+    const intervalo = 3000 + Math.random() * 2500;
     this.estado.timeoutPiscar = setTimeout(() => {
       this.piscar();
-      if (Math.random() < 0.25) {
-        setTimeout(() => this.piscar(), 360);
-      }
       this.iniciarCicloPiscar();
     }, intervalo);
   },
@@ -136,30 +144,49 @@ const ModuloMascote = {
     return semMasculino.length ? semMasculino[0] : vozesPt[0];
   },
 
+  atualizarEstadoBotaoNarrar(ativo) {
+    const btnGlobal = document.getElementById('btn-voz-global');
+    if (btnGlobal) {
+      btnGlobal.classList.toggle('narrating', ativo);
+      btnGlobal.setAttribute('aria-pressed', String(ativo));
+      const span = btnGlobal.querySelector('span');
+      if (span) span.textContent = ativo ? 'Parar' : 'Narrar';
+    }
+  },
+
   falar(texto) {
     if (!texto || !texto.trim()) return;
     this.pararFala();
 
+    // Pausa o piscar idle enquanto fala para não haver conflito de frames
+    clearTimeout(this.estado.timeoutPiscar);
+
     this.estado.falando = true;
+    this.atualizarEstadoBotaoNarrar(true);
+    this.exibirToast('A Dra. Nina está falando… clique para parar.');
+
     const imgEl = document.getElementById('dra-nina-img');
     imgEl?.classList.add('dra-nina-falando');
 
-    const ciclo = ['falando', 'gesticulando', 'falando', 'neutra'];
+    // Inicia imediatamente no frame falando e alterna com gesticulando
+    const cicloFala = ['falando', 'gesticulando', 'falando', 'neutra'];
     let frame = 0;
-    this.estado.intervaloFala = setInterval(() => {
-      frame = (frame + 1) % ciclo.length;
-      this.trocarSprite(ciclo[frame]);
-    }, 280);
+    this.trocarSprite(cicloFala[0]);
 
-    this.exibirToast('A Dra. Nina está falando… clique para parar.');
+    this.estado.intervaloFala = setInterval(() => {
+      if (!this.estado.falando) return;
+      frame = (frame + 1) % cicloFala.length;
+      this.trocarSprite(cicloFala[frame]);
+    }, 320);
 
     if (this.estado.speechSupported) {
       try {
         window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(texto);
+        const textoLimpo = texto.replace(/[\u{1F300}-\u{1FAFF}]/gu, '').trim();
+        const utterance = new SpeechSynthesisUtterance(textoLimpo);
         utterance.lang = 'pt-BR';
-        utterance.rate = 0.95;
-        utterance.pitch = 1.15;
+        utterance.rate = 0.96;
+        utterance.pitch = 1.1;
 
         const voz = this.obterVozFeminina();
         if (voz) utterance.voice = voz;
@@ -177,7 +204,7 @@ const ModuloMascote = {
   },
 
   simularFala(texto) {
-    const duracao = Math.max(2200, texto.length * 65);
+    const duracao = Math.max(2200, texto.length * 60);
     setTimeout(() => {
       if (this.estado.falando) this.pararFala();
     }, duracao);
@@ -196,6 +223,7 @@ const ModuloMascote = {
     imgEl?.classList.remove('dra-nina-falando');
     this.trocarSprite('neutra');
     this.exibirToast(null);
+    this.atualizarEstadoBotaoNarrar(false);
 
     const btnVoz = document.getElementById('btn-voz');
     if (btnVoz) {
@@ -203,23 +231,9 @@ const ModuloMascote = {
       const sp = btnVoz.querySelector('span');
       if (sp) sp.textContent = 'Ouvir';
     }
-  },
 
-  atualizarBalao(msg, estado = 'default') {
-    const balao = document.getElementById('dra-nina-balao');
-    const textoEl = balao?.querySelector('.balloon-text');
-    if (!balao || !textoEl) return;
-
-    balao.classList.remove('state-success', 'state-error', 'typing');
-    if (estado === 'success') balao.classList.add('state-success');
-    if (estado === 'error')   balao.classList.add('state-error');
-    if (estado === 'typing')  balao.classList.add('typing');
-
-    textoEl.style.opacity = '0';
-    setTimeout(() => {
-      textoEl.textContent = msg;
-      textoEl.style.opacity = '1';
-    }, 120);
+    // Retoma o ciclo idle de piscar
+    this.iniciarCicloPiscar();
   },
 
   reagirResultado(tipo) {
@@ -229,12 +243,23 @@ const ModuloMascote = {
 
     if (tipo === 'sucesso') {
       imgEl.classList.add('dra-nina-happy');
-      this.piscar();
-      setTimeout(() => imgEl.classList.remove('dra-nina-happy'), 1600);
+      setTimeout(() => imgEl.classList.remove('dra-nina-happy'), 2500);
     } else if (tipo === 'falta') {
       imgEl.classList.add('dra-nina-sad');
-      setTimeout(() => imgEl.classList.remove('dra-nina-sad'), 2000);
+      setTimeout(() => imgEl.classList.remove('dra-nina-sad'), 2500);
     }
+  },
+
+  atualizarBalao(msg, estado = 'default') {
+    const balao = document.getElementById('dra-nina-balao');
+    const textoEl = balao?.querySelector('.balloon-text');
+    if (!balao || !textoEl) return;
+
+    balao.classList.remove('state-success', 'state-error');
+    if (estado === 'success') balao.classList.add('state-success');
+    if (estado === 'error')   balao.classList.add('state-error');
+
+    textoEl.textContent = msg;
   },
 
   iniciarDicas() {
@@ -251,12 +276,8 @@ const ModuloMascote = {
     const total = this.DICAS_DO_DIA.length;
     this.estado.tipIndex = ((idx % total) + total) % total;
 
-    tipTexto.style.opacity = '0';
-    setTimeout(() => {
-      tipTexto.textContent = this.DICAS_DO_DIA[this.estado.tipIndex];
-      tipCounter.textContent = `${this.estado.tipIndex + 1}/${total}`;
-      tipTexto.style.opacity = '1';
-    }, 120);
+    tipTexto.textContent = this.DICAS_DO_DIA[this.estado.tipIndex];
+    tipCounter.textContent = `${this.estado.tipIndex + 1}/${total}`;
   },
 
   exibirToast(msg) {

@@ -19,7 +19,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="assets/css/style.css"/>
 
-  <!-- Pré-carregamento dos sprites da Dra. Nina (animação fluida sem atraso) -->
+  <!-- Pré-carregamento dos sprites da Dra. Nina -->
   <link rel="preload" as="image" href="assets/images/nina_neutra.png"/>
   <link rel="preload" as="image" href="assets/images/nina_falando.png"/>
   <link rel="preload" as="image" href="assets/images/nina_gesticulando.png"/>
@@ -61,14 +61,14 @@
       <div class="a11y-divider" aria-hidden="true"></div>
 
       <button id="btn-voz-global" class="a11y-btn a11y-btn-voz" type="button"
-        aria-label="Ativar leitor de tela por voz" title="Leitor de tela">
+        aria-label="Narrar resposta da Dra. Nina" aria-pressed="false" title="Narrar resposta">
         <i class="bi bi-volume-up-fill" aria-hidden="true"></i>
-        <span class="d-none d-sm-inline ms-1">Narrar</span>
+        <span class="ms-1">Narrar</span>
       </button>
     </div>
   </div>
 
-  <!-- ═══════ HEADER ═══════ -->
+  <!-- ═══════ HEADER (ROLA PARA FORA NO MOBILE) ═══════ -->
   <header class="app-header" role="banner">
     <div class="container-fluid px-3 py-2 d-flex align-items-center justify-content-between">
       <div class="brand d-flex align-items-center gap-2">
@@ -82,7 +82,7 @@
         <span class="badge badge-ods d-none d-sm-inline-flex">
           <i class="bi bi-globe-americas me-1" aria-hidden="true"></i>ODS 3
         </span>
-        <span class="badge badge-mvp">MVP v2.0</span>
+        <span class="badge badge-mvp">MVP v2.2</span>
       </div>
     </div>
   </header>
@@ -94,9 +94,8 @@
       <div class="container-fluid px-3">
         <div class="nina-card">
 
-          <!-- Avatar Nina -->
+          <!-- Avatar Nina (Estática piscando) -->
           <div class="nina-avatar-wrapper" id="nina-avatar-wrapper">
-            <!-- Imagem oficial da Dra. Nina por Sprites (neutra, falando, gesticulando, piscando) -->
             <img
               id="dra-nina-img"
               src="assets/images/nina_neutra.png"
@@ -107,7 +106,6 @@
 
           <!-- Coluna direita: balão + dica do dia -->
           <div class="nina-right-col">
-            <!-- Balão de fala -->
             <div id="dra-nina-balao" class="nina-balloon" role="status" aria-live="polite"
               aria-label="Mensagem da Dra. Nina">
               <div class="balloon-header">
@@ -118,7 +116,7 @@
                 </button>
               </div>
               <p class="balloon-text mb-0">
-                Olá! Sou a Dra. Nina. Que medicamento procura hoje? Escreva em baixo e eu ajudo a encontrar a UBS mais próxima.
+                Olá! Sou a Dra. Nina. Que medicamento procura hoje? Escreva abaixo e eu ajudo a encontrar a UBS mais próxima.
               </p>
             </div>
 
@@ -141,7 +139,7 @@
             </div>
           </div>
 
-        </div><!-- /nina-card -->
+        </div>
       </div>
     </section>
 
@@ -205,7 +203,6 @@
 
           <form id="form-pesquisa" role="search" aria-label="Formulário de pesquisa" novalidate>
 
-            <!-- Linha principal: input com microfone + botão pesquisar -->
             <div class="input-group-custom">
               <label for="input-medicamento" class="form-label-custom">Nome do medicamento:</label>
               <div class="input-row">
@@ -225,7 +222,6 @@
                     <i class="bi bi-mic-fill" aria-hidden="true"></i>
                   </button>
 
-                  <!-- Dropdown de Autocomplete Inteligente (Sugestões Dinâmicas e Nomes Comerciais) -->
                   <div id="autocomplete-dropdown" class="autocomplete-dropdown" hidden role="listbox" aria-label="Sugestões de medicamentos e marcas comerciais"></div>
                 </div>
                 <button type="submit" id="btn-pesquisar" class="btn-pesquisar"
@@ -234,7 +230,6 @@
                 </button>
               </div>
 
-              <!-- Indicador visual de escuta por comando de voz -->
               <div id="voice-listening-badge" class="voice-listening-badge" hidden aria-live="assertive">
                 <span class="pulse-recording" aria-hidden="true"></span>
                 <span>Ouvindo... Fale o nome do medicamento agora</span>
@@ -246,7 +241,6 @@
               </p>
             </div>
 
-            <!-- Filtro por zona -->
             <div class="filter-row" role="group" aria-label="Filtrar resultados por zona">
               <label for="select-zona" class="filter-label">
                 <i class="bi bi-geo-alt-fill me-1" aria-hidden="true"></i>Filtrar por Zona:
@@ -261,7 +255,6 @@
               </select>
             </div>
 
-            <!-- Chips de sugestão -->
             <div class="quick-suggestions" aria-label="Medicamentos mais buscados">
               <span class="suggestions-label">Buscas frequentes (Genéricos e Marcas):</span>
               <div class="suggestions-list" role="list">
@@ -291,7 +284,6 @@
       aria-live="polite" hidden>
       <div class="container-fluid px-3">
 
-        <!-- Cabeçalho resultados -->
         <div class="results-header" id="results-header">
           <div class="results-title-row">
             <h2 class="results-title" id="results-title-text"></h2>
@@ -302,7 +294,6 @@
           </div>
           <div class="results-meta-row">
             <p class="results-subtitle mb-0" id="results-subtitle"></p>
-            <!-- Legenda de cores -->
             <div class="status-legend" aria-label="Legenda de status">
               <span class="legend-item legend-disponivel">
                 <span class="legend-dot" aria-hidden="true"></span>Disponível
@@ -317,7 +308,6 @@
           </div>
         </div>
 
-        <!-- Banner de Equivalência: Nome Comercial pesquisado vs Princípio Ativo SUS -->
         <div id="alerta-comercial-sus" class="alerta-comercial-sus" hidden role="note" aria-live="polite">
           <div class="alerta-comercial-icon" aria-hidden="true">
             <i class="bi bi-info-circle-fill"></i>
@@ -330,10 +320,8 @@
           </div>
         </div>
 
-        <!-- Cards das UBS -->
         <div id="lista-ubs" class="ubs-list" role="list" aria-label="UBS com o medicamento"></div>
 
-        <!-- Aviso de filtro vazio -->
         <div id="filter-empty" class="filter-empty-state" hidden>
           <div class="not-found-icon" aria-hidden="true">🗺️</div>
           <p class="not-found-title">Nenhuma UBS encontrada nesta zona</p>
@@ -343,7 +331,6 @@
           </button>
         </div>
 
-        <!-- Não encontrado -->
         <div id="not-found-state" class="not-found-state" hidden>
           <div class="not-found-icon" aria-hidden="true">😿</div>
           <h2 class="not-found-title">Medicamento não encontrado</h2>
@@ -422,7 +409,6 @@
         </div>
       </div>
 
-      <!-- Aviso de transparência de dados -->
       <div class="transparency-notice" role="note" aria-label="Aviso de transparência de dados">
         <i class="bi bi-shield-check-fill me-2" aria-hidden="true"></i>
         <div>
@@ -462,7 +448,7 @@
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmFO1R3G2MFAFk2b3LTMIT+bT2y"
     crossorigin="anonymous"></script>
 
-  <!-- Base de Dados (compatível com protocolo local file:// e servidores web) -->
+  <!-- Base de Dados Única -->
   <script src="dados/dados_saude.js"></script>
 
   <!-- Módulos Independentes da Aplicação -->
